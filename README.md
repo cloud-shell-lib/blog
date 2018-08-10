@@ -26,18 +26,22 @@ cs. hexo clean, hexo server
 cg. hexo clean, hexo generate
 cgd. hexo clean, hexo generate, hexo deploy
 
-i. 配置环境、初始化、安装主题。
+i. 搭建环境、初始化、安装主题、安装依赖包(i i)……
 h. hexo help
+0. 结束
 --------------------------------------------------
 请选择操作: 
 ```
 
 ```
 ================= Hexo Utilities =================
-1. 安装hexo (npm install hexo-cli -g)
-2. 创建博客 (hexo init blog, npm install, hexo s)
-3. 安装依赖包 (npm install)
-4. 安装并应用 Material-X 主题
+n. 安装node.js
+h. 安装hexo (npm install hexo-cli -g)
+
+b. 创建博客 (hexo init blog, npm install, hexo s)
+x. 安装并应用 Material-X 主题【强烈推荐】
+
+i. 安装依赖包 (npm install)
 
 0. 返回上一层
 --------------------------------------------------
