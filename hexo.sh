@@ -1,6 +1,9 @@
 #!/bin/bash https://blog.xaoxuu.com
 
-
+function echo_fail(){
+	echo '操作失败！'
+	read -p "按下回车键继续: "
+}
 function cmd_hexo_c(){
 	echo '> hexo clean'
     hexo clean
@@ -28,7 +31,7 @@ function cmd_hexo_theme(){
 }
 function cmd_i_nodejs(){
 	echo '> 下载并安装node.js'
-	curl "https://nodejs.org/dist/latest/node-${VERSION:-$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')}.pkg" > "$HOME/Downloads/node-latest.pkg" && sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"
+	curl -o $HOME/Downloads/node-latest.pkg 'https://nodejs.org/dist/v8.11.3/node-v8.11.3.pkg' && sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"
 }
 function cmd_i_hexo(){
 	echo '> sudo npm install hexo-cli -g'
@@ -47,7 +50,7 @@ function cmd_i_hexo_blog(){
 }
 function cmd_update(){
 	echo '> 正在更新脚本...'
-	curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chmod 777 hexo.sh  && . hexo.sh || echo '脚本更新失败！'
+	curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chmod 777 hexo.sh  && . hexo.sh || echo_fail
 }
 function cmd_i(){
 	PARAM1=""
@@ -63,6 +66,9 @@ function cmd_i(){
 			echo 'x. 安装并应用 Material-X 主题【强烈推荐】'
 			echo ''
 			echo 'i. 安装依赖包 (npm install)'
+			echo ''
+			echo 'hbx. 安装hexo，搭建 Material-X 主题博客'
+			echo 'nhbx. 安装node.js、hexo，搭建 Material-X 主题博客'
 			echo ''
 			echo '0. 返回上一层'
 			echo '--------------------------------------------------'
@@ -84,6 +90,14 @@ function cmd_i(){
 	    elif [ $PARAM2 == 'i' ];then
 	    	echo '> npm install'
 	    	npm install
+		    PARAM2=""
+	    	break
+	    elif [ $PARAM2 == 'hbx' ];then
+	    	cmd_i_hexo && cmd_i_hexo_blog && cmd_hexo_theme && cmd_hexo_s || echo_fail
+		    PARAM2=""
+	    	break
+	    elif [ $PARAM2 == 'nhbx' ];then
+	    	cmd_i_nodejs && cmd_i_hexo && cmd_i_hexo_blog && cmd_hexo_theme && cmd_hexo_s || echo_fail
 		    PARAM2=""
 	    	break
 		elif [ $PARAM2 == '0' ];then
@@ -145,7 +159,6 @@ function start(){
 			hexo help
 		elif [ $PARAM1 == 'u' ];then
 			cmd_update
-			read -p "按下回车键继续: "
 		elif [ $PARAM1 == '0' ];then
 			break
 		else 
