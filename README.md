@@ -1,12 +1,12 @@
 # hexo.sh
 
 
-let path = 你想把博客放在哪里或者你的博客的路径
+let `path` = 你想把博客放在哪里或者你的博客的路径
 
-打开终端cd到path，执行下面这条命令下载并打开 `hexo.sh` 脚本
+打开终端cd到 `path` ，执行下面这条命令下载并打开 `hexo.sh` 脚本
 
 ```bash
-curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && . hexo.sh
+curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chmod 777 hexo.sh && . hexo.sh
 ```
 
 
