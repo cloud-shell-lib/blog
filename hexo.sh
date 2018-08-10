@@ -33,21 +33,21 @@ function cmd_hexo_theme(){
 	echo '> 正在应用主题...'
 	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: material-x/g" '_config.yml'
 }
-function cmd_i_nodejs_i(){
+function cmd_m_nodejs_i(){
 	echo '> 请输入密码来安装node.js'
 	sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"
 }
-function cmd_i_nodejs_d(){
+function cmd_m_nodejs_d(){
 	echo '> 现在开始下载node.js，这通常不会太久...'
 	curl -o $HOME/Downloads/node-latest.pkg 'https://nodejs.org/dist/v8.11.3/node-v8.11.3.pkg'
 }
-function cmd_i_hexo(){
+function cmd_m_hexo(){
 	echo '> 现在开始下载并安装hexo，这通常不会太久...'
 	echo '> sudo npm install hexo-cli -g'
 	sudo npm install hexo-cli -g
 }
 
-function cmd_i_hexo_blog(){
+function cmd_m_hexo_blog(){
 	read -p "请输入blog名称，例如“blog”: " BLOGNAME
 	echo '> hexo init' ${BLOGNAME}
 	hexo init ${BLOGNAME}
@@ -61,35 +61,40 @@ function cmd_update(){
 	echo '> 正在更新...'
 	curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chmod 777 hexo.sh  && . hexo.sh || echo_fail
 }
-function cmd_i(){
+function cmd_m(){
 	PARAM1=""
 	while :
 	do
 		if [ "$PARAM2" == "" ];then
 			clear
-			echo '================= Hexo Utilities ================='
-			echo 'n. 安装node.js'
-			echo 'h. 安装hexo (npm install hexo-cli -g)'
+			echo '=================== Hexo Utilities ==================='
+			echo '搭建环境:'
+			echo '  n     安装node.js'
+			echo '  h     安装hexo (npm install hexo-cli -g)'
 			echo ''
-			echo 'b. 创建博客 (hexo init blog, npm install, hexo s)'
-			echo 'x. 安装并应用 Material-X 主题【强烈推荐】'
+			echo '创建博客:'
+			echo '  b     创建博客 (hexo init blog, npm install, hexo s)'
+			echo '  x     安装并应用【Material-X】主题【强烈推荐】'
 			echo ''
-			echo 'i. 安装依赖包 (npm install)'
+			echo '安装依赖:'
+			echo '  i     安装依赖包 (npm install)'
+			echo '' 
+			echo '小白套餐:'
+			echo '  hbx   安装hexo 并搭建【Material-X】主题博客'
+			echo '  nhbx  安装node.js、hexo并搭建【Material-X】主题博客'
 			echo ''
-			echo 'hbx. 安装hexo，搭建 Material-X 主题博客'
-			echo 'nhbx. 安装node.js、hexo，搭建 Material-X 主题博客'
-			echo ''
-			echo '0. 返回上一层'
-			echo '--------------------------------------------------'
+			echo '脚本菜单:'
+			echo '  .     返回上一层'
+			echo '------------------------------------------------------'
 			read -p "请选择操作: " PARAM2
 		fi
         
 	    if [ $PARAM2 == 'n' ];then
-	    	cmd_i_nodejs_d && cmd_i_nodejs_i
+	    	cmd_m_nodejs_d && cmd_m_nodejs_i
 	    elif [ $PARAM2 == 'h' ];then
-	    	cmd_i_hexo
+	    	cmd_m_hexo
 		elif [ $PARAM2 == 'b' ];then
-			cmd_i_hexo_blog
+			cmd_m_hexo_blog
 			cmd_hexo_s
 		elif [ $PARAM2 == 'x' ];then
 			cmd_hexo_theme && cmd_hexo_s
@@ -102,15 +107,15 @@ function cmd_i(){
 	    	break
 	    elif [ $PARAM2 == 'hbx' ];then
 	    	echo '> 请坐和放宽，我正在帮你搞定一切...'
-	    	cmd_i_hexo && cmd_i_hexo_blog && cmd_hexo_theme && cmd_hexo_s || echo_fail
+	    	cmd_m_hexo && cmd_m_hexo_blog && cmd_hexo_theme && cmd_hexo_s || echo_fail
 		    PARAM2=""
 	    	break
 	    elif [ $PARAM2 == 'nhbx' ];then
 	    	echo '> 请坐和放宽，我正在帮你搞定一切...'
-	    	cmd_i_nodejs_d && cmd_i_nodejs_i && cmd_i_hexo && cmd_i_hexo_blog && cmd_hexo_theme && cmd_hexo_s || echo_fail
+	    	cmd_m_nodejs_d && cmd_m_nodejs_i && cmd_m_hexo && cmd_m_hexo_blog && cmd_hexo_theme && cmd_hexo_s || echo_fail
 		    PARAM2=""
 	    	break
-		elif [ $PARAM2 == '0' ];then
+		elif [ $PARAM2 == '.' ];then
 		    PARAM2=""
 			break
 		else 
@@ -128,18 +133,23 @@ function start(){
 	do
 		if [ "$PARAM1" == "" ];then
 			clear
-			echo '================= Hexo Utilities ================='
-			echo 'c. hexo clean'
-			echo 'g. hexo generate'
-			echo 's. hexo server'
-			echo 'd. hexo deploy'
-			echo 'cs. hexo clean, hexo server'
-			echo 'cg. hexo clean, hexo generate'
-			echo 'cgd. hexo clean, hexo generate, hexo deploy'
+			echo '==================== Hexo Utilities ===================='
+			echo '单个指令:'
+			echo '  c     hexo clean'
+			echo '  g     hexo generate'
+			echo '  s     hexo server'
+			echo '  d     hexo deploy'
 			echo ''
-			echo 'i. 搭建环境、创建博客、安装主题、安装依赖包'
-			echo 'u. 更新脚本'
-			echo '--------------------------------------------------'
+			echo '组合指令:'
+			echo '  cs    hexo clean, hexo server'
+			echo '  cg    hexo clean, hexo generate'
+			echo '  cgd   hexo clean, hexo generate, hexo deploy'
+			echo ''
+			echo '脚本菜单:'
+			echo '  m     更多（搭建环境、创建博客、安装主题、安装依赖包）'
+			echo '  u     更新脚本'
+			echo '  .     结束脚本'
+			echo '--------------------------------------------------------'
 		    read -p "请选择操作: " PARAM1
 		fi
         
@@ -161,11 +171,11 @@ function start(){
 	        cmd_hexo_c
 	        cmd_hexo_g
 	        cmd_hexo_d
-		elif [ $PARAM1 == 'i' ];then
-			cmd_i
+		elif [ $PARAM1 == 'm' ];then
+			cmd_m
 		elif [ $PARAM1 == 'u' ];then
 			cmd_update
-		elif [ $PARAM1 == '0' ];then
+		elif [ $PARAM1 == '.' ];then
 			break
 		else 
 		    PARAM1=""

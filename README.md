@@ -36,34 +36,45 @@ curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chm
 - 对于新手来说，这个脚本可以让你快速上手hexo博客。
 
 ```
-================= Hexo Utilities =================
-c. hexo clean
-g. hexo generate
-s. hexo server
-d. hexo deploy
-cs. hexo clean, hexo server
-cg. hexo clean, hexo generate
-cgd. hexo clean, hexo generate, hexo deploy
+==================== Hexo Utilities ====================
+单个指令:
+  c     hexo clean
+  g     hexo generate
+  s     hexo server
+  d     hexo deploy
 
-i. 搭建环境、初始化、安装主题、安装依赖包(i i)……
-u. 更新脚本
---------------------------------------------------
-请选择操作: 
+组合指令:
+  cs    hexo clean, hexo server
+  cg    hexo clean, hexo generate
+  cgd   hexo clean, hexo generate, hexo deploy
+
+脚本菜单:
+  m     更多（搭建环境、创建博客、安装主题、安装依赖包）
+  u     更新脚本
+  .     结束脚本
+--------------------------------------------------------
 ```
 
 ```
-================= Hexo Utilities =================
-n. 安装node.js
-h. 安装hexo (npm install hexo-cli -g)
+=================== Hexo Utilities ===================
+搭建环境:
+  n     安装node.js
+  h     安装hexo (npm install hexo-cli -g)
 
-b. 创建博客 (hexo init blog, npm install, hexo s)
-x. 安装并应用 Material-X 主题【强烈推荐】
+创建博客:
+  b     创建博客 (hexo init blog, npm install, hexo s)
+  x     安装并应用【Material-X】主题【强烈推荐】
 
-i. 安装依赖包 (npm install)
+安装依赖:
+  i     安装依赖包 (npm install)
 
-0. 返回上一层
---------------------------------------------------
-请选择操作: 
+小白套餐:
+  hbx   安装hexo 并搭建【Material-X】主题博客
+  nhbx  安装node.js、hexo并搭建【Material-X】主题博客
+
+脚本菜单:
+  .     返回上一层
+------------------------------------------------------
 ```
 
 ## 例如
