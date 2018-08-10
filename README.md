@@ -25,7 +25,9 @@ curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chm
 curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chmod 777 hexo.sh && . hexo.sh i nhbx
 ```
 
-
+> 注意：安装node.js的时候需要输入**本机密码**，别忘了哦。
+>
+> 搭建博客的时候你需要输入**博客名**，其他时间就可以坐和放宽了。
 
 ## 脚本的功能
 

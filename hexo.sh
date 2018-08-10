@@ -1,8 +1,12 @@
 #!/bin/bash https://blog.xaoxuu.com
 
 function echo_fail(){
-	echo '操作失败！'
+	echo '⚠️ 操作失败！我们都有不顺利的时候。'
 	read -p "按下回车键继续: "
+}
+function sleep_open_url(){
+	sleep 3
+	open http://localhost:4000/
 }
 function cmd_hexo_c(){
 	echo '> hexo clean'
@@ -14,7 +18,7 @@ function cmd_hexo_g(){
 }
 function cmd_hexo_s(){
 	echo '> hexo server'
-    open http://localhost:4000/
+    sleep_open_url &
     hexo server
 }
 function cmd_hexo_d(){
@@ -24,22 +28,27 @@ function cmd_hexo_d(){
 function cmd_hexo_theme(){
 	echo '> git clone https://github.com/xaoxuu/hexo-theme-material-x themes/material-x'
 	git clone https://github.com/xaoxuu/hexo-theme-material-x themes/material-x
-	echo '> 安装主题依赖包...'
+	echo '> 正在安装主题依赖包，马上就要成功了...'
 	npm i -S hexo-generator-search hexo-generator-feed hexo-renderer-less hexo-autoprefixer hexo-generator-json-content hexo-recommended-posts
 	echo '> 正在应用主题...'
 	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: material-x/g" '_config.yml'
 }
-function cmd_i_nodejs(){
-	echo '> 下载并安装node.js'
-	curl -o $HOME/Downloads/node-latest.pkg 'https://nodejs.org/dist/v8.11.3/node-v8.11.3.pkg' && sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"
+function cmd_i_nodejs_i(){
+	echo '> 请输入密码来安装node.js'
+	sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"
+}
+function cmd_i_nodejs_d(){
+	echo '> 现在开始下载node.js，这通常不会太久...'
+	curl -o $HOME/Downloads/node-latest.pkg 'https://nodejs.org/dist/v8.11.3/node-v8.11.3.pkg'
 }
 function cmd_i_hexo(){
+	echo '> 现在开始下载并安装hexo，这通常不会太久...'
 	echo '> sudo npm install hexo-cli -g'
 	sudo npm install hexo-cli -g
 }
 
 function cmd_i_hexo_blog(){
-	read -p "请输入blog名称: " BLOGNAME
+	read -p "请输入blog名称，例如“blog”: " BLOGNAME
 	echo '> hexo init' ${BLOGNAME}
 	hexo init ${BLOGNAME}
 	mv hexo.sh ${BLOGNAME}/hexo.sh
@@ -49,7 +58,7 @@ function cmd_i_hexo_blog(){
     npm install
 }
 function cmd_update(){
-	echo '> 正在更新脚本...'
+	echo '> 正在更新...'
 	curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chmod 777 hexo.sh  && . hexo.sh || echo_fail
 }
 function cmd_i(){
@@ -76,15 +85,14 @@ function cmd_i(){
 		fi
         
 	    if [ $PARAM2 == 'n' ];then
-	    	cmd_i_nodejs
+	    	cmd_i_nodejs_d && cmd_i_nodejs_i
 	    elif [ $PARAM2 == 'h' ];then
 	    	cmd_i_hexo
 		elif [ $PARAM2 == 'b' ];then
 			cmd_i_hexo_blog
 			cmd_hexo_s
 		elif [ $PARAM2 == 'x' ];then
-			cmd_hexo_theme
-			cmd_hexo_s
+			cmd_hexo_theme && cmd_hexo_s
 		    PARAM2=""
 			break
 	    elif [ $PARAM2 == 'i' ];then
@@ -93,11 +101,13 @@ function cmd_i(){
 		    PARAM2=""
 	    	break
 	    elif [ $PARAM2 == 'hbx' ];then
+	    	echo '> 请坐和放宽，我正在帮你搞定一切...'
 	    	cmd_i_hexo && cmd_i_hexo_blog && cmd_hexo_theme && cmd_hexo_s || echo_fail
 		    PARAM2=""
 	    	break
 	    elif [ $PARAM2 == 'nhbx' ];then
-	    	cmd_i_nodejs && cmd_i_hexo && cmd_i_hexo_blog && cmd_hexo_theme && cmd_hexo_s || echo_fail
+	    	echo '> 请坐和放宽，我正在帮你搞定一切...'
+	    	cmd_i_nodejs_d && cmd_i_nodejs_i && cmd_i_hexo && cmd_i_hexo_blog && cmd_hexo_theme && cmd_hexo_s || echo_fail
 		    PARAM2=""
 	    	break
 		elif [ $PARAM2 == '0' ];then
@@ -127,7 +137,7 @@ function start(){
 			echo 'cg. hexo clean, hexo generate'
 			echo 'cgd. hexo clean, hexo generate, hexo deploy'
 			echo ''
-			echo 'i. 搭建环境、初始化、安装主题、安装依赖包……'
+			echo 'i. 搭建环境、创建博客、安装主题、安装依赖包'
 			echo 'h. hexo help'
 			echo 'u. 更新脚本'
 			echo '0. 结束'
