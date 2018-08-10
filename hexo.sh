@@ -29,23 +29,26 @@ function cmd_hexo_theme(){
 }
 
 function cmd_i(){
-	clear
-	echo '================= Hexo Utilities ================='
-	echo '1. 安装hexo (npm install hexo-cli -g)'
-	echo '2. 创建博客 (hexo init blog, npm install, hexo s)'
-	echo '3. 安装依赖包 (npm install)'
-	echo '4. 安装并应用 Material-X 主题'
-	echo ''
-	echo '0. 返回上一层'
-	echo '--------------------------------------------------'
-
+	PARAM1=""
 	while :
 	do
-	    read -p "请选择操作: " OP
-	    if [ $OP == 1 ];then
+		if [ "$PARAM2" == "" ];then
+			clear
+			echo '================= Hexo Utilities ================='
+			echo '1. 安装hexo (npm install hexo-cli -g)'
+			echo '2. 创建博客 (hexo init blog, npm install, hexo s)'
+			echo '3. 安装依赖包 (npm install)'
+			echo '4. 安装并应用 Material-X 主题'
+			echo ''
+			echo '0. 返回上一层'
+			echo '--------------------------------------------------'
+			read -p "请选择操作: " PARAM2
+		fi
+        
+	    if [ $PARAM2 == 1 ];then
 	    	echo '> sudo npm install hexo-cli -g'
 	    	sudo npm install hexo-cli -g
-		elif [ $OP == 2 ];then
+		elif [ $PARAM2 == 2 ];then
 			read -p "请输入blog名称: " BLOGNAME
 			echo '> hexo init' ${BLOGNAME}
 			hexo init ${BLOGNAME}
@@ -56,68 +59,76 @@ function cmd_i(){
 	        echo '> hexo server'
 	        hexo server open http://localhost:4000/
 	        start
-	    elif [ $OP == 3 ];then
+	    elif [ $PARAM2 == 3 ];then
 	    	echo '> npm install'
 	    	npm install
 	    	start
-		elif [ $OP == 4 ];then
+		elif [ $PARAM2 == 4 ];then
 			cmd_hexo_theme
 			start
-		elif [ $OP == '0' ];then
+		elif [ $PARAM2 == 0 ];then
 			start
 		else 
+		    PARAM2=""
 	        continue
 	    fi
+	    PARAM2=""
 	done
 
 }
 
 function start(){
-	clear
-	echo '================= Hexo Utilities ================='
-	echo 'c. hexo clean'
-	echo 'g. hexo generate'
-	echo 's. hexo server'
-	echo 'd. hexo deploy'
-	echo 'cs. hexo clean, hexo server'
-	echo 'cg. hexo clean, hexo generate'
-	echo 'cgd. hexo clean, hexo generate, hexo deploy'
-	echo ''
-	echo 'i. 配置环境、初始化、安装主题。'
-	echo 'h. hexo help'
-	echo '--------------------------------------------------'
 
 	while :
 	do
-	    read -p "请选择操作: " OP
-	    if [ $OP == 'c' ];then
+		if [ "$PARAM1" == "" ];then
+			clear
+			echo '================= Hexo Utilities ================='
+			echo 'c. hexo clean'
+			echo 'g. hexo generate'
+			echo 's. hexo server'
+			echo 'd. hexo deploy'
+			echo 'cs. hexo clean, hexo server'
+			echo 'cg. hexo clean, hexo generate'
+			echo 'cgd. hexo clean, hexo generate, hexo deploy'
+			echo ''
+			echo 'i. 配置环境、初始化、安装主题。'
+			echo 'h. hexo help'
+			echo '--------------------------------------------------'
+		    read -p "请选择操作: " PARAM1
+		fi
+        
+	    if [ $PARAM1 == 'c' ];then
 	    	cmd_hexo_c
-	    elif [ $OP == 'g' ];then
+	    elif [ $PARAM1 == 'g' ];then
 			cmd_hexo_g
-		elif [ $OP == 's' ];then
+		elif [ $PARAM1 == 's' ];then
 	        cmd_hexo_s
-	    elif [ $OP == 'd' ];then
+	    elif [ $PARAM1 == 'd' ];then
 			cmd_hexo_d
-		elif [ $OP == 'cs' ];then
+		elif [ $PARAM1 == 'cs' ];then
 	        cmd_hexo_c
 	        cmd_hexo_s
-		elif [ $OP == 'cg' ];then
+		elif [ $PARAM1 == 'cg' ];then
 	        cmd_hexo_c
 	        cmd_hexo_g
-		elif [ $OP == 'cgd' ];then
+		elif [ $PARAM1 == 'cgd' ];then
 	        cmd_hexo_c
 	        cmd_hexo_g
 	        cmd_hexo_d
-		elif [ $OP == 'i' ];then
+		elif [ $PARAM1 == 'i' ];then
 			cmd_i
-		elif [ $OP == 'h' ];then
+		elif [ $PARAM1 == 'h' ];then
 			hexo help
 		else 
+		    PARAM1=""
 	        continue
 	    fi
+	    PARAM1=""
 	done
 }
 
-
+PARAM1=$1
+PARAM2=$2
 start
 
