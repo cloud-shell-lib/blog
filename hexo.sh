@@ -79,13 +79,16 @@ function cmd_i(){
 		elif [ $PARAM2 == 'x' ];then
 			cmd_hexo_theme
 			cmd_hexo_s
-			start
+		    PARAM2=""
+			break
 	    elif [ $PARAM2 == 'i' ];then
 	    	echo '> npm install'
 	    	npm install
-	    	start
+		    PARAM2=""
+	    	break
 		elif [ $PARAM2 == '0' ];then
-			start
+		    PARAM2=""
+			break
 		else 
 		    PARAM2=""
 	        continue
