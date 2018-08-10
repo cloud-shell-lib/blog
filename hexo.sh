@@ -39,7 +39,7 @@ function cmd_m_nodejs_i(){
 }
 function cmd_m_nodejs_d(){
 	echo '> 现在开始下载node.js，这通常不会太久...'
-	curl -o $HOME/Downloads/node-latest.pkg 'https://nodejs.org/dist/v8.11.3/node-v8.11.3.pkg'
+	curl -o $HOME/Downloads/node-latest.pkg 'https://nodejs.org/dist/v8.11.3/node-v8.11.3.pkg' -#
 }
 function cmd_m_hexo(){
 	echo '> 现在开始下载并安装hexo，这通常不会太久...'
@@ -59,7 +59,7 @@ function cmd_m_hexo_blog(){
 }
 function cmd_update(){
 	echo '> 正在更新...'
-	curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chmod 777 hexo.sh  && . hexo.sh || echo_fail
+	curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' -# && chmod 777 hexo.sh  && . hexo.sh || echo_fail
 }
 function cmd_m(){
 	PARAM1=""
