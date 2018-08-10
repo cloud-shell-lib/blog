@@ -48,6 +48,10 @@ function cmd_i_hexo_blog(){
     echo '> hexo server'
     hexo server open http://localhost:4000/
 }
+function cmd_update(){
+	echo '> 正在更新脚本...'
+	curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chmod 777 hexo.sh  && . hexo.sh || echo '脚本更新失败！'
+}
 function cmd_i(){
 	PARAM1=""
 	while :
@@ -109,6 +113,7 @@ function start(){
 			echo ''
 			echo 'i. 搭建环境、初始化、安装主题、安装依赖包……'
 			echo 'h. hexo help'
+			echo 'u. 更新脚本'
 			echo '0. 结束'
 			echo '--------------------------------------------------'
 		    read -p "请选择操作: " PARAM1
@@ -136,6 +141,9 @@ function start(){
 			cmd_i
 		elif [ $PARAM1 == 'h' ];then
 			hexo help
+		elif [ $PARAM1 == 'u' ];then
+			cmd_update
+			read -p "按下回车键继续: "
 		elif [ $PARAM1 == '0' ];then
 			break
 		else 
