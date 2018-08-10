@@ -3,11 +3,20 @@
 
 let `path` = 你想把博客放在哪里或者你的博客的路径
 
-打开终端cd到 `path` ，执行下面这条命令下载并打开 `hexo.sh` 脚本
+打开终端cd到 `path` ，执行下面这条命令 **下载并打开 `hexo.sh` 脚本**
 
 ```bash
 curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chmod 777 hexo.sh && . hexo.sh
 ```
+
+#### 或者
+
+如果你已经有博客了，可以执行这段命令 **尝试 `Material-X` 主题**
+
+```bash
+curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chmod 777 hexo.sh && . hexo.sh i x
+```
+
 
 
 ## 脚本的功能
@@ -51,5 +60,9 @@ i. 安装依赖包 (npm install)
 ## 例如
 
 - 如果进行了某些修改需要重启server，就输入 `cs`
+
 - 需要clean再重新generate，就输入 `cg`
+
 - 需要clean在重新generate，然后deploy，那么就输入 `cgd`
+
+  
