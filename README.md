@@ -1,9 +1,9 @@
 # hexo.sh
 
 
-let `path` = 你想把博客放在哪里或者你的博客的路径
+let `path` = 你想把博客放在哪里或者你的博客的路径，打开终端 **cd到 `path`** 。
 
-打开终端cd到 `path` ，执行下面这条命令 **下载并打开 `hexo.sh` 脚本**
+👉 执行下面这条命令 **下载并打开 `hexo.sh` 脚本**
 
 ```bash
 curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chmod 777 hexo.sh && . hexo.sh
@@ -11,10 +11,18 @@ curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chm
 
 #### 或者
 
-如果你已经有博客了，可以执行这段命令 **尝试 `Material-X` 主题**
+👉 如果你已经有博客了，可以执行这段命令 **尝试 `Material-X` 主题**
 
 ```bash
 curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chmod 777 hexo.sh && . hexo.sh i x
+```
+
+#### 或者
+
+👉 如果你还没有搭建博客环境，可以执行这段命令 **配置环境并搭建 `Material-X` 主题的博客**
+
+```bash
+curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chmod 777 hexo.sh && . hexo.sh i nhbx
 ```
 
 
