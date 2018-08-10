@@ -40,6 +40,7 @@ function cmd_i_hexo_blog(){
 	read -p "请输入blog名称: " BLOGNAME
 	echo '> hexo init' ${BLOGNAME}
 	hexo init ${BLOGNAME}
+	mv hexo.sh ${BLOGNAME}/hexo.sh
 	echo '> cd' ${BLOGNAME}
 	cd ${BLOGNAME}
     echo '> npm install'
@@ -73,7 +74,6 @@ function cmd_i(){
 	    	cmd_i_hexo
 		elif [ $PARAM2 == 'b' ];then
 			cmd_i_hexo_blog
-	        start
 		elif [ $PARAM2 == 'x' ];then
 			cmd_hexo_theme
 			start
