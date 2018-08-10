@@ -25,7 +25,6 @@ function cmd_hexo_theme(){
 	npm i -S hexo-generator-search hexo-generator-feed hexo-renderer-less hexo-autoprefixer hexo-generator-json-content hexo-recommended-posts
 	echo '> 正在应用主题...'
 	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: material-x/g" '_config.yml'
-	cmd_hexo_s
 }
 function cmd_i_nodejs(){
 	echo '> 下载并安装node.js'
@@ -45,8 +44,6 @@ function cmd_i_hexo_blog(){
 	cd ${BLOGNAME}
     echo '> npm install'
     npm install
-    echo '> hexo server'
-    hexo server open http://localhost:4000/
 }
 function cmd_update(){
 	echo '> 正在更新脚本...'
@@ -78,8 +75,10 @@ function cmd_i(){
 	    	cmd_i_hexo
 		elif [ $PARAM2 == 'b' ];then
 			cmd_i_hexo_blog
+			cmd_hexo_s
 		elif [ $PARAM2 == 'x' ];then
 			cmd_hexo_theme
+			cmd_hexo_s
 			start
 	    elif [ $PARAM2 == 'i' ];then
 	    	echo '> npm install'
