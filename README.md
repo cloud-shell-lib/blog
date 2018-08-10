@@ -46,9 +46,7 @@ cg. hexo clean, hexo generate
 cgd. hexo clean, hexo generate, hexo deploy
 
 i. 搭建环境、初始化、安装主题、安装依赖包(i i)……
-h. hexo help
 u. 更新脚本
-0. 结束
 --------------------------------------------------
 请选择操作: 
 ```

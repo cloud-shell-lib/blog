@@ -138,9 +138,7 @@ function start(){
 			echo 'cgd. hexo clean, hexo generate, hexo deploy'
 			echo ''
 			echo 'i. 搭建环境、创建博客、安装主题、安装依赖包'
-			echo 'h. hexo help'
 			echo 'u. 更新脚本'
-			echo '0. 结束'
 			echo '--------------------------------------------------'
 		    read -p "请选择操作: " PARAM1
 		fi
@@ -165,8 +163,6 @@ function start(){
 	        cmd_hexo_d
 		elif [ $PARAM1 == 'i' ];then
 			cmd_i
-		elif [ $PARAM1 == 'h' ];then
-			hexo help
 		elif [ $PARAM1 == 'u' ];then
 			cmd_update
 		elif [ $PARAM1 == '0' ];then
