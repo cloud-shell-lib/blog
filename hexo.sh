@@ -59,8 +59,14 @@ function cmd_m_hexo_blog(){
     echo '> npm install'
     npm install
 }
+
+function cmd_git_commit(){
+	git add hexo.sh
+	git commit -m "update hexo.sh" 
+	git push origin
+}
 function cmd_update_s(){
-	echo "> 更新成功，即将重启脚本..." && sleep 2 && . hexo.sh
+	echo "> 更新成功，即将重启脚本..." && sleep 2 && . hexo.sh && cmd_git_commit &
 }
 function cmd_update(){
 	echo '> 正在更新...'
