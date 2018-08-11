@@ -68,6 +68,14 @@ function cmd_git_commit(){
 	git commit -m "update hexo.sh" 
 	git push origin
 }
+function cmd_git_commit_all(){
+	if [ "$1" != "" ]; then
+		echo $1
+	fi
+	git add --all
+	git commit -am "update all" 
+	git push origin
+}
 function cmd_update_s(){
 	cmd_git_commit "> 更新成功，正在提交文件改动到git..."
 	echo "> 即将重启脚本..."
@@ -187,6 +195,7 @@ function start(){
 	        cmd_hexo_c
 	        cmd_hexo_g
 	        cmd_hexo_d
+	        cmd_git_commit_all "> 正在提交文件改动到git..."
 		elif [ $PARAM1 == 'm' ];then
 			cmd_m
 		elif [ $PARAM1 == 'u' ];then
