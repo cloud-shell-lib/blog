@@ -61,12 +61,17 @@ function cmd_m_hexo_blog(){
 }
 
 function cmd_git_commit(){
+	if [ "$1" != "" ]; then
+		echo $1
+	fi
 	git add hexo.sh
 	git commit -m "update hexo.sh" 
 	git push origin
 }
 function cmd_update_s(){
-	echo "> 更新成功，即将重启脚本..." && sleep 2 && . hexo.sh && cmd_git_commit &
+	cmd_git_commit "> 更新成功，正在提交文件改动到git..."
+	echo "> 即将重启脚本..."
+	sleep 3 && . hexo.sh
 }
 function cmd_update(){
 	echo '> 正在更新...'
