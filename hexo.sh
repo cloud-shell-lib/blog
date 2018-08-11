@@ -1,10 +1,13 @@
 #!/bin/bash https://blog.xaoxuu.com
 
 
-function echo_fail(){
-	echo "> 操作失败！我们都有不顺利的时候。"
+function typed_to_continue(){
 	echo "按下任意键继续: "
 	read -n 1 
+}
+function echo_fail(){
+	echo "> 操作失败！我们都有不顺利的时候。"
+	typed_to_continue
 }
 function sleep_open_url(){
 	sleep 3
@@ -64,17 +67,13 @@ function cmd_git_commit(){
 	if [ "$1" != "" ]; then
 		echo $1
 	fi
-	git add hexo.sh
-	git commit -m "update hexo.sh" 
-	git push origin
+	git add hexo.sh && git commit -m "update hexo.sh" && git push origin && echo "> 提交成功！"
 }
 function cmd_git_commit_all(){
 	if [ "$1" != "" ]; then
 		echo $1
 	fi
-	git add --all
-	git commit -am "update all" 
-	git push origin
+	git add --all && git commit -am "update all" && git push origin && echo "> 提交成功！"
 }
 function cmd_update_s(){
 	cmd_git_commit "> 更新成功，正在提交文件改动到git..."
@@ -178,24 +177,19 @@ function start(){
 		fi
         
 	    if [ $PARAM1 == 'c' ];then
-	    	cmd_hexo_c
+	    	cmd_hexo_c && typed_to_continue || echo_fail
 	    elif [ $PARAM1 == 'g' ];then
-			cmd_hexo_g
+			cmd_hexo_g && typed_to_continue || echo_fail
 		elif [ $PARAM1 == 's' ];then
 	        cmd_hexo_s
 	    elif [ $PARAM1 == 'd' ];then
-			cmd_hexo_d
+			cmd_hexo_d && typed_to_continue || echo_fail
 		elif [ $PARAM1 == 'cs' ];then
-	        cmd_hexo_c
-	        cmd_hexo_s
+	        cmd_hexo_c && cmd_hexo_s
 		elif [ $PARAM1 == 'cg' ];then
-	        cmd_hexo_c
-	        cmd_hexo_g
+	        cmd_hexo_c && cmd_hexo_g && typed_to_continue || echo_fail
 		elif [ $PARAM1 == 'cgd' ];then
-	        cmd_hexo_c
-	        cmd_hexo_g
-	        cmd_hexo_d
-	        cmd_git_commit_all "> 正在提交文件改动到git..."
+	        cmd_hexo_c && cmd_hexo_g && cmd_hexo_d && cmd_git_commit_all "> 正在提交文件改动到git..." && typed_to_continue || echo_fail
 		elif [ $PARAM1 == 'm' ];then
 			cmd_m
 		elif [ $PARAM1 == 'u' ];then
