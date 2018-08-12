@@ -67,14 +67,15 @@ function cmd_git_commit(){
 	if [ "$1" != "" ]; then
 		echo $1
 	fi
-	git add hexo.sh && git commit -m "update hexo.sh" && git push origin && echo "> 提交成功！"
+	git add hexo.sh && git commit -m "update hexo.sh" 
+	git push origin && echo "> 提交成功！"
 }
 function cmd_git_commit_all(){
 	if [ "$1" != "" ]; then
 		echo $1
 	fi
-	git add --all && git commit -am "update all" && git push origin
-	echo "> 提交成功！"
+	git add --all && git commit -am "update all"
+	git push origin && echo "> 提交成功！"
 }
 function cmd_update_s(){
 	cmd_git_commit "> 更新成功，正在提交文件改动到git..."
