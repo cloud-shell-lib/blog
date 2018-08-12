@@ -6,7 +6,7 @@ let `path` = 你想把博客放在哪里或者你的博客的路径，打开终�
 👉 执行下面这条命令 **下载并打开 `hexo.sh` 脚本**
 
 ```bash
-curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chmod 777 hexo.sh && . hexo.sh
+curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' -# && chmod 777 hexo.sh && . hexo.sh
 ```
 
 #### 或者
@@ -14,7 +14,7 @@ curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chm
 👉 如果你已经有博客了，可以执行这段命令 **尝试 `Material-X` 主题**
 
 ```bash
-curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chmod 777 hexo.sh && . hexo.sh m x
+curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' -# && chmod 777 hexo.sh && . hexo.sh m x
 ```
 
 #### 或者
@@ -22,7 +22,7 @@ curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chm
 👉 如果你还没有搭建博客环境，可以执行这段命令 **配置环境并搭建 `Material-X` 主题的博客**
 
 ```bash
-curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' && chmod 777 hexo.sh && . hexo.sh m nhbx
+curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' -# && chmod 777 hexo.sh && . hexo.sh m nhbx
 ```
 
 > 注意：安装node.js的时候需要输入**本机密码**，别忘了哦。
