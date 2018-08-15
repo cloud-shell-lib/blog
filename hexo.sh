@@ -6,7 +6,7 @@ function typed_to_continue(){
 	read -n 1 
 }
 function echo_fail(){
-	echo "> 操作失败！我们都有不顺利的时候。"
+	echo -e "> \\033[0;31m操作失败！我们都有不顺利的时候。\\033[0;39m"
 	typed_to_continue
 }
 function sleep_open_url(){
@@ -68,14 +68,14 @@ function cmd_git_commit(){
 		echo $1
 	fi
 	git add hexo.sh && git commit -m "update hexo.sh" 
-	git push origin && echo "> 提交成功！"
+	git push origin && echo -e "> \\033[0;32m提交成功！\\033[0;39m"
 }
 function cmd_git_commit_all(){
 	if [ "$1" != "" ]; then
 		echo $1
 	fi
 	git add --all && git commit -am "update all"
-	git push origin && echo "> 提交成功！"
+	git push origin && echo -e "> \\033[0;32m提交成功！\\033[0;39m"
 }
 function cmd_update_s(){
 	cmd_git_commit "> 更新成功，正在提交文件改动到git..."
