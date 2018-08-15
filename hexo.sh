@@ -1,6 +1,6 @@
 #!/bin/bash https://blog.xaoxuu.com
 
-VERSION='1.0'
+VERSION='1.1'
 
 function typed_to_continue(){
 	echo "按下任意键继续: "
@@ -96,6 +96,14 @@ function cmd_updated(){
 	PARAM2=""
 	cmd_git_commit
 }
+
+function cmd_try_mx(){
+	git clone https://github.com/hexojs/hexo-theme-unit-test.git &&
+	mv hexo.sh hexo-theme-unit-test/hexo.sh &&
+	cd hexo-theme-unit-test &&
+    npm install && 
+    . hexo.sh m x
+}
 function cmd_m(){
 	PARAM1=""
 	while :
@@ -110,6 +118,7 @@ function cmd_m(){
 			echo '创建博客:'
 			echo '  b     创建博客 (hexo init blog, npm install, hexo s)'
 			echo '  x     安装并应用【Material-X】主题【强烈推荐】'
+			echo '  try   试用【Material-X】主题单元测试（预览效果）'
 			echo ''
 			echo '安装依赖:'
 			echo '  i     安装依赖包 (npm install)'
@@ -133,6 +142,10 @@ function cmd_m(){
 			cmd_hexo_s
 		elif [ $PARAM2 == 'x' ];then
 			cmd_hexo_theme && cmd_hexo_s
+		    PARAM2=""
+			break
+		elif [ $PARAM2 == 'try' ];then
+			cmd_try_mx
 		    PARAM2=""
 			break
 	    elif [ $PARAM2 == 'i' ];then
