@@ -1,5 +1,6 @@
 #!/bin/bash https://blog.xaoxuu.com
 
+VERSION='1.0'
 
 function typed_to_continue(){
 	echo "按下任意键继续: "
@@ -73,13 +74,18 @@ function cmd_git_commit_all(){
 	git add --all && git commit -am "update all"
 	git push origin && echo -e "> \\033[0;32m提交成功！\\033[0;39m"
 }
-function cmd_update_s(){
-	echo -e "> \\033[0;32m更新成功！\\033[0;39m"
-	sleep 3 && . hexo.sh 'cmd_git_commit'
-}
 function cmd_update(){
 	echo '> 正在更新...'
 	curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' -# && chmod 777 hexo.sh && cmd_update_s || echo_fail
+}
+# 更新成功之后，重启脚本并把当前的版本传递过去
+function cmd_update_s(){
+	sleep 1 && . hexo.sh 'cmd_updated' $VERSION
+}
+# 在新的脚本中，输出更新信息，并提交文件改动
+function cmd_updated(){
+	echo -e "> \\033[0;32m更新成功！\\033[0;39m  ${PARAM2} -> ${VERSION}"
+	cmd_git_commit || echo_fail
 }
 function cmd_m(){
 	PARAM1=""
@@ -193,8 +199,8 @@ function start(){
 			cmd_update
 		elif [ $PARAM1 == '.' ];then
 			break
-		elif [ $PARAM1 == 'cmd_git_commit' ];then
-			cmd_git_commit && sleep 2 || echo_fail
+		elif [ $PARAM1 == 'cmd_updated' ];then
+			cmd_updated
 		else 
 		    PARAM1=""
 	        continue
