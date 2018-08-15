@@ -64,23 +64,18 @@ function cmd_m_hexo_blog(){
 }
 
 function cmd_git_commit(){
-	if [ "$1" != "" ]; then
-		echo $1
-	fi
+	echo '> 正在提交文件改动到git...'
 	git add hexo.sh && git commit -m "update hexo.sh" 
 	git push origin && echo -e "> \\033[0;32m提交成功！\\033[0;39m"
 }
 function cmd_git_commit_all(){
-	if [ "$1" != "" ]; then
-		echo $1
-	fi
+	echo '> 正在提交文件改动到git...'
 	git add --all && git commit -am "update all"
 	git push origin && echo -e "> \\033[0;32m提交成功！\\033[0;39m"
 }
 function cmd_update_s(){
-	cmd_git_commit "> 更新成功，正在提交文件改动到git..."
-	echo "> 即将重启脚本..."
-	sleep 3 && . hexo.sh
+	echo -e "> \\033[0;32m更新成功！\\033[0;39m"
+	sleep 3 && . hexo.sh 'cmd_git_commit'
 }
 function cmd_update(){
 	echo '> 正在更新...'
@@ -191,13 +186,15 @@ function start(){
 		elif [ $PARAM1 == 'cg' ];then
 	        cmd_hexo_c && cmd_hexo_g && typed_to_continue || echo_fail
 		elif [ $PARAM1 == 'cgd' ];then
-	        cmd_hexo_c && cmd_hexo_g && cmd_hexo_d && cmd_git_commit_all "> 正在提交文件改动到git..." && typed_to_continue || echo_fail
+	        cmd_hexo_c && cmd_hexo_g && cmd_hexo_d && cmd_git_commit_all && typed_to_continue || echo_fail
 		elif [ $PARAM1 == 'm' ];then
 			cmd_m
 		elif [ $PARAM1 == 'u' ];then
 			cmd_update
 		elif [ $PARAM1 == '.' ];then
 			break
+		elif [ $PARAM1 == 'cmd_git_commit' ];then
+			cmd_git_commit || echo_fail
 		else 
 		    PARAM1=""
 	        continue
