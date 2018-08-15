@@ -84,8 +84,9 @@ function cmd_update_s(){
 }
 # 在新的脚本中，输出更新信息，并提交文件改动
 function cmd_updated(){
-	echo -e "> \\033[0;32m更新成功！\\033[0;39m  ${PARAM2} -> ${VERSION}"
-	cmd_git_commit || echo_fail
+	echo -e "> \\033[0;32m更新成功！\\033[0;39m    ${PARAM2} -> ${VERSION}"
+	PARAM2=""
+	cmd_git_commit
 }
 function cmd_m(){
 	PARAM1=""
@@ -200,7 +201,7 @@ function start(){
 		elif [ $PARAM1 == '.' ];then
 			break
 		elif [ $PARAM1 == 'cmd_updated' ];then
-			cmd_updated
+			cmd_updated && sleep 2 || echo_fail
 		else 
 		    PARAM1=""
 	        continue
