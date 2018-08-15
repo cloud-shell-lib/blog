@@ -78,9 +78,17 @@ function cmd_update(){
 	echo '> 正在更新...'
 	curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' -# && chmod 777 hexo.sh && cmd_update_s || echo_fail
 }
+# 更新失败后，撤销对hexo.sh的修改
+function cmd_update_f(){
+	echo -e "> \\033[0;31m更新失败！我们都有不顺利的时候。\\033[0;39m"
+	git checkout hexo.sh
+	PARAM1=""
+	PARAM2=""
+	typed_to_continue
+}
 # 更新成功之后，重启脚本并把当前的版本传递过去
 function cmd_update_s(){
-	sleep 1 && . hexo.sh 'cmd_updated' $VERSION
+	sleep 1 && . hexo.sh 'cmd_updated' $VERSION || cmd_update_f
 }
 # 在新的脚本中，输出更新信息，并提交文件改动
 function cmd_updated(){
@@ -173,9 +181,8 @@ function start(){
 			echo '  cgd   hexo clean, hexo generate, hexo deploy'
 			echo ''
 			echo '脚本菜单:'
-			echo '  m     更多（搭建环境、创建博客、安装主题、安装依赖包）'
-			echo '  u     更新脚本'
-			echo '  .     结束脚本'
+			echo '  m     搭建环境、创建博客、安装主题、安装依赖包等'
+			echo "  u     更新脚本（当前版本：${VERSION}）"
 			echo '--------------------------------------------------------'
 		    read -p "请选择操作: " PARAM1
 		fi
@@ -198,8 +205,6 @@ function start(){
 			cmd_m
 		elif [ $PARAM1 == 'u' ];then
 			cmd_update
-		elif [ $PARAM1 == '.' ];then
-			break
 		elif [ $PARAM1 == 'cmd_updated' ];then
 			cmd_updated && sleep 2 || echo_fail
 		else 

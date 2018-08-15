@@ -73,9 +73,8 @@ curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' -# && 
   cgd   hexo clean, hexo generate, hexo deploy
 
 脚本菜单:
-  m     更多（搭建环境、创建博客、安装主题、安装依赖包）
-  u     更新脚本
-  .     结束脚本
+  m     搭建环境、创建博客、安装主题、安装依赖包等
+  u     更新脚本（当前版本：1.0）
 --------------------------------------------------------
 ```
 
