@@ -194,7 +194,7 @@ function start(){
 		elif [ $PARAM1 == '.' ];then
 			break
 		elif [ $PARAM1 == 'cmd_git_commit' ];then
-			cmd_git_commit || echo_fail
+			cmd_git_commit && sleep 1 || echo_fail
 		else 
 		    PARAM1=""
 	        continue
