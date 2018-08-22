@@ -217,7 +217,7 @@ function start(){
 	        cmd_hexo_c && cmd_hexo_g && cmd_hexo_d && cmd_git_commit_all && typed_to_continue || echo_fail
 		elif [ $PARAM1 == 'm' ];then
 			cmd_m
-		elif [ $PARAM1 == 'u' ];then
+		elif [ $PARAM1 == 'u' -o $PARAM1 == 'update' ];then
 			cmd_update
 		elif [ $PARAM1 == 'cmd_updated' ];then
 			cmd_updated && sleep 2 || echo_fail
