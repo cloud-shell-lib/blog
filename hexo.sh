@@ -1,4 +1,5 @@
-#!/bin/bash https://blog.xaoxuu.com
+#!/bin/bash 
+
 
 VERSION='1.1'
 
