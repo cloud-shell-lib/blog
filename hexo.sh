@@ -1,7 +1,7 @@
 #!/bin/bash 
 
 
-VERSION='1.1'
+VERSION='1.2'
 
 function typed_to_continue(){
 	echo "按下任意键继续: "
@@ -133,44 +133,28 @@ function cmd_m(){
 			echo '------------------------------------------------------'
 			read -p "请选择操作: " PARAM2
 		fi
-        
-	    if [ $PARAM2 == 'n' ];then
-	    	cmd_m_nodejs_d && cmd_m_nodejs_i
-	    elif [ $PARAM2 == 'h' ];then
-	    	cmd_m_hexo
-		elif [ $PARAM2 == 'b' ];then
-			cmd_m_hexo_blog
-			cmd_hexo_s
-		elif [ $PARAM2 == 'x' ];then
-			cmd_hexo_theme && cmd_hexo_s
-		    PARAM2=""
-			break
-		elif [ $PARAM2 == 'try' ];then
-			cmd_try_mx
-		    PARAM2=""
-			break
-	    elif [ $PARAM2 == 'i' ];then
-	    	echo '> npm install'
-	    	npm install
-		    PARAM2=""
-	    	break
-	    elif [ $PARAM2 == 'hbx' ];then
-	    	echo '> 请坐和放宽，我正在帮你搞定一切...'
-	    	cmd_m_hexo && cmd_m_hexo_blog && cmd_hexo_theme && cmd_hexo_s || echo_fail
-		    PARAM2=""
-	    	break
-	    elif [ $PARAM2 == 'nhbx' ];then
-	    	echo '> 请坐和放宽，我正在帮你搞定一切...'
-	    	cmd_m_nodejs_d && cmd_m_nodejs_i && cmd_m_hexo && cmd_m_hexo_blog && cmd_hexo_theme && cmd_hexo_s || echo_fail
-		    PARAM2=""
-	    	break
-		elif [ $PARAM2 == '.' ];then
-		    PARAM2=""
-			break
-		else 
-		    PARAM2=""
-	        continue
-	    fi
+        case $PARAM2 in
+	        'n') cmd_m_nodejs_d && cmd_m_nodejs_i ;;
+			'h') cmd_m_hexo ;;
+			'b') cmd_m_hexo_blog && cmd_hexo_s ;;
+
+			'x') cmd_hexo_theme && cmd_hexo_s
+		    	PARAM2="" && break ;;
+			'try') cmd_try_mx
+		    	PARAM2="" && break ;;
+			'i') echo '> npm install'
+		    	npm install
+			    PARAM2="" && break ;;
+			'hbx') echo '> 请坐和放宽，我正在帮你搞定一切...'
+		    	cmd_m_hexo && cmd_m_hexo_blog && cmd_hexo_theme && cmd_hexo_s || echo_fail
+			    PARAM2="" && break ;;
+			'nhbx') echo '> 请坐和放宽，我正在帮你搞定一切...'
+		    	cmd_m_nodejs_d && cmd_m_nodejs_i && cmd_m_hexo && cmd_m_hexo_blog && cmd_hexo_theme && cmd_hexo_s || echo_fail
+			    PARAM2="" && break ;;
+			'.') PARAM2="" && break ;;
+			
+	        *);;
+	    esac
 	    PARAM2=""
 	done
 
@@ -200,33 +184,22 @@ function start(){
 			echo '--------------------------------------------------------'
 		    read -p "请选择操作: " PARAM1
 		fi
-        
-	    if [ $PARAM1 == 'c' ];then
-	    	cmd_hexo_c && typed_to_continue || echo_fail
-	    elif [ $PARAM1 == 'g' ];then
-			cmd_hexo_g && typed_to_continue || echo_fail
-		elif [ $PARAM1 == 's' ];then
-	        cmd_hexo_s
-	    elif [ $PARAM1 == 'd' ];then
-			cmd_hexo_d && typed_to_continue || echo_fail
-		elif [ $PARAM1 == 'cs' ];then
-	        cmd_hexo_c && cmd_hexo_s
-		elif [ $PARAM1 == 'cg' ];then
-	        cmd_hexo_c && cmd_hexo_g && typed_to_continue || echo_fail
-		elif [ $PARAM1 == 'cgd' ];then
-	        cmd_hexo_c && cmd_hexo_g && cmd_hexo_d && cmd_git_commit_all && typed_to_continue || echo_fail
-		elif [ $PARAM1 == 'm' ];then
-			cmd_m
-		elif [ $PARAM1 == 'docs' ];then
-			open https://xaoxuu.com/docs/hexo.sh
-		elif [ $PARAM1 == 'u' -o $PARAM1 == 'update' ];then
-			cmd_update
-		elif [ $PARAM1 == 'cmd_updated' ];then
-			cmd_updated && sleep 2 || echo_fail
-		else 
-		    PARAM1=""
-	        continue
-	    fi
+        case $PARAM1 in
+	        'c'|'clean') cmd_hexo_c && typed_to_continue || echo_fail ;;
+			'g'|'generate') cmd_hexo_g && typed_to_continue || echo_fail ;;
+			's'|'server') cmd_hexo_s ;;
+			'd'|'deploy') cmd_hexo_d && typed_to_continue || echo_fail ;;
+			'cs') cmd_hexo_c && cmd_hexo_s ;;
+			'cg') cmd_hexo_c && cmd_hexo_g && typed_to_continue || echo_fail ;;
+			'cgd') cmd_hexo_c && cmd_hexo_g && cmd_hexo_d && cmd_git_commit_all && typed_to_continue || echo_fail ;;
+			'm'|'more') cmd_m ;;
+			'docs') open https://xaoxuu.com/docs/hexo.sh ;;
+			'u'|'update') cmd_update ;;
+
+			# private
+			'cmd_updated') cmd_updated && sleep 2 || echo_fail ;;
+	        *);;
+	    esac
 	    PARAM1=""
 	done
 }
