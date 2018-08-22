@@ -24,29 +24,24 @@ git push origin
 
 ## 那么，如何迅捷而优雅地使用hexo.sh？
 
-ABC三种场景，请对号入座。
 
-### A. 我想下载并开始使用hexo.sh
+### A. 我已经有博客
 
-let `path` = 你想把博客放在哪里或者你的博客的路径，打开终端 **cd到 `path`** 。
+let `path` = 你的博客的路径，打开终端 **cd到 `path`** 。
 
-执行下面这条命令 **下载并打开 `hexo.sh` 脚本**
+copy这段代码到终端执行，**下载并开始使用hexo.sh**：
 
 ```bash
 curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' -# && chmod 777 hexo.sh && . hexo.sh
 ```
 
-### B. 我想下载hexo.sh并尝试新全新的博客主题
 
-如果你已经有博客了，可以执行这段命令 **尝试 `Material-X` 主题**
 
-```bash
-curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' -# && chmod 777 hexo.sh && . hexo.sh m x
-```
+### B. 我还没有博客
 
-### C. 我想下载hexo.sh并一键搭建hexo博客
+let `path` = 你想把博客放在哪里，打开终端 **cd到 `path`** 。
 
-如果你还没有搭建博客环境，可以执行这段命令 **配置环境并搭建 `Material-X` 主题的博客**
+copy这段代码到终端执行，**配置环境并搭建 `Material-X` 主题的博客**：
 
 ```bash
 curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' -# && chmod 777 hexo.sh && . hexo.sh m nhbx
@@ -55,6 +50,8 @@ curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' -# && 
 > 注意：安装node.js的时候需要输入**本机密码**，别忘了哦。
 >
 > 搭建博客的时候你需要输入**博客名**，其他时间就可以坐和放宽了。
+
+
 
 
 ## 脚本预览
@@ -99,5 +96,3 @@ curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' -# && 
   .     返回上一层
 ------------------------------------------------------
 ```
-
-  
