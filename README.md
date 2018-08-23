@@ -64,14 +64,14 @@ curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' -# && 
 在终端输入如下命令即可打开脚本：
 
 ```bash
-.hexo
+hexo.x
 ```
 
 
 
 ### 使用脚本
 
-在终端输入 `.hexo help` 即可查看脚本所有支持的指令。
+在终端输入 `hexo.sh help` 即可查看脚本所有支持的指令。
 
 
 
@@ -79,7 +79,7 @@ curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' -# && 
 
 let `path` = 你想把博客放在哪里，打开终端 **cd到 `path`** 。
 
-在终端输入 **`.hexo auto`** 自动检查并安装所有需要的环境，然后搭建并启动博客 。
+在终端输入 **`hexo.sh auto`** 自动检查并安装所有需要的环境，然后搭建并启动博客 。
 
 > 注意：安装node.js或者hexo的时候需要输入一次**本机密码**，别忘了哦。
 >

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# 在终端输入 .hexo 即可打开脚本
+# 在终端输入 hexo.sh 即可打开脚本
 #
 
 # 脚本版本
@@ -45,16 +45,16 @@ function on_updated(){
 			}
 	        chmod 777 $HOME/Downloads/hexo.sh && 
 	        printf "\n> 请输入密码来更新脚本\n" &&
-	        sudo mv $HOME/Downloads/hexo.sh '/usr/local/bin/.hexo' && success || on_fail
+	        sudo mv $HOME/Downloads/hexo.sh '/usr/local/bin/hexo.sh' && success || on_fail
 	        PARAM2="" && PARAM3="" 
 	        ;;
 		*) # 下载
 			chmod 777 hexo.sh && 
 			printf "\n> 请输入密码来安装脚本\n" &&
-			sudo mv hexo.sh '/usr/local/bin/.hexo' || on_fail
+			sudo mv hexo.sh '/usr/local/bin/hexo.sh' || on_fail
 			;;
 	esac
-	.hexo $PARAM2 $PARAM3
+	hexo.sh $PARAM2 $PARAM3
 }
 
 # 安装nodejs
@@ -247,10 +247,10 @@ function start(){
 			# 安装
 			'i'|'install') cmd_install ;;
 			# 自动
-			'a'|'auto') cmd_auto ;;
+			'auto') cmd_auto ;;
 			'xut')
 				git clone https://github.com/hexojs/hexo-theme-unit-test.git &&
-				cd hexo-theme-unit-test && npm_install && .hexo i x ;;
+				cd hexo-theme-unit-test && npm_install && hexo.sh i x ;;
 			# 脚本
 			'cd') cd $PARAM2 && on_success && on_wait 1 || on_fail;;
 			'docs') open https://xaoxuu.com/docs/hexo.sh ;;
