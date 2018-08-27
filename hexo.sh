@@ -4,7 +4,7 @@
 #
 
 # 脚本版本
-VERSION='2.0'
+VERSION='2.0.1'
 
 function on_wait(){
 	if [ "$1" != "" ];then
@@ -128,7 +128,7 @@ function cmd_update(){
 }
 
 
-function cmd_auto(){
+function cmd_init(){
 	# 检查是否有 node 环境
 	function auto_node(){
 		printf "\n> 正在检查 node 环境...\n"
@@ -186,7 +186,7 @@ function start(){
 		printf "  \t\t \033[1m\033[32m%s\033[0m %-12s %s \n" 'x' '(material-x)' '下载并应用【Material-X】主题' && wait
 
 		printf "\n自动:\n" && wait
-		printf "  \033[1m\033[32m%-s\033[0m \t\t %s \n" 'auto' '自动检查并安装所有需要的环境，然后搭建并启动博客。👍🏼' && wait
+		printf "  \033[1m\033[32m%-s\033[0m \t\t %s \n" 'init' '自动检查并安装所有需要的环境，然后搭建并启动博客。👍🏼' && wait
 		printf "  \033[1m\033[32m%-s\033[0m \t\t %s \n" 'xut' '下载并运行【Material-X】主题的单元测试。' && wait
 
 
@@ -223,7 +223,6 @@ function start(){
 			printf "  \033[1m\033[32m%s\033[0m %s \t\t %s \n" 'cg' '' '执行 c, g 的组合'
 			printf "  \033[1m\033[32m%s\033[0m %s \t\t %s \n" 'cgd' '' '执行 c, g, d 的组合，然后提交代码'
 			printf "\n更多:\n"
-			printf "  \033[1m\033[32m%-s\033[0m %s \033[1m\033[32m%-s\033[0m \t %s \n" 'cd' '+' '`path`' '选择路径'
 			printf "  \033[1m\033[32m%-s\033[0m %s \t %s%s%s \n" 'u' '(update)' '更新脚本文件(当前版本：' ${VERSION} ')'
 			printf "  \033[1m\033[32m%-s\033[0m \t\t %s \n" 'help'  '查看全部指令'
 			echo '--------------------------------------------------------'
@@ -247,7 +246,7 @@ function start(){
 			# 安装
 			'i'|'install') cmd_install ;;
 			# 自动
-			'auto') cmd_auto ;;
+			'init') cmd_init ;;
 			'xut')
 				git clone https://github.com/hexojs/hexo-theme-unit-test.git &&
 				cd hexo-theme-unit-test && npm_install && hexo.sh i x ;;
