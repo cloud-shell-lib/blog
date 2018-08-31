@@ -60,7 +60,7 @@ curl -O 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' -# && 
 
 ### 打开脚本
 
-在终端输入如下 `hexo.x` 即可打开脚本菜单。
+在终端输入如下 `hexo.sh` 即可打开脚本菜单。
 
 也可以后面直接带参数，例如 `hexo.sh cs` 就相当于打开脚本菜单然后输入 `cs`。
 
