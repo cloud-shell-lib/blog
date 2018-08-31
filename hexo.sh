@@ -4,7 +4,7 @@
 #
 
 # 脚本版本
-VERSION='2.0.1'
+VERSION='2.0.2'
 
 function on_wait(){
 	if [ "$1" != "" ];then
@@ -91,8 +91,15 @@ function hexo_init(){
 }
 # 安装主题
 function hexo_theme_x(){
-	printf "\n> git clone https://github.com/xaoxuu/hexo-theme-material-x themes/material-x\n"
-	git clone https://github.com/xaoxuu/hexo-theme-material-x themes/material-x
+	function git_clone(){
+		printf "\n> git clone https://github.com/xaoxuu/hexo-theme-material-x themes/material-x\n"
+		git clone https://github.com/xaoxuu/hexo-theme-material-x themes/material-x
+	}
+	function git_update(){
+		printf "\n> git pull https://github.com/xaoxuu/hexo-theme-material-x themes/material-x\n"
+		cd "themes/material-x" && git pull && git checkout -- . && cd ../..
+	}
+	git_clone || git_update
 	printf "\n> 正在安装主题依赖包，马上就要成功了...\n"
 	npm i -S hexo-generator-search hexo-generator-feed hexo-renderer-less hexo-autoprefixer hexo-generator-json-content hexo-recommended-posts
 	printf "\n> 正在应用主题...\n"
@@ -259,7 +266,6 @@ function start(){
 
 			# private
 			'-i') on_updated ;;
-
 			*) ;;
 	    esac
 	    PARAM1="" && PARAM2=""
