@@ -4,7 +4,7 @@
 #
 
 # 脚本版本
-VERSION='2.0.2'
+VERSION='2.0.3'
 
 function on_wait(){
 	if [ "$1" != "" ];then
@@ -199,7 +199,7 @@ function start(){
 
 		printf "\n脚本:\n" && wait
 		printf "  \033[1m\033[32m%-s\033[0m %s \033[1m\033[32m%-s\033[0m \t %s \n" 'cd' '+' '`path`' '选择路径'
-		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'docs' '' '查看文档(https://xaoxuu.com/docs/hexo.sh)' && wait
+		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'docs' '' '查看文档(https://xaoxuu.com/wiki/hexo.sh)' && wait
 		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'gh' '(github)' 'GitHub页面(https://github.com/xaoxuu/hexo.sh)' && wait
 		printf "  \033[1m\033[32m%-s\033[0m %s \t %s%s%s \n" 'u' '(update)' '更新脚本文件(当前版本：' ${VERSION} ')' && wait
 
@@ -259,7 +259,7 @@ function start(){
 				cd hexo-theme-unit-test && npm_install && hexo.sh i x ;;
 			# 脚本
 			'cd') cd $PARAM2 && on_success && on_wait 1 || on_fail;;
-			'docs') open https://xaoxuu.com/docs/hexo.sh ;;
+			'docs') open https://xaoxuu.com/wiki/hexo.sh ;;
 			'gh'|'github') open https://github.com/xaoxuu/hexo.sh ;;
 			'u'|'update') cmd_update ;;
 			'help') cmd_help ;;
