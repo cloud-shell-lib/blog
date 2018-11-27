@@ -1,0 +1,21 @@
+#!/bin/bash
+
+const_lib=https://raw.githubusercontent.com/xaoxuu/lib/v1
+const_repo='hexo.sh'
+const_client='hexo.sh'
+
+param1_version=$1
+case $param1_version in
+	'') param1_version='v2' ;;
+	*) ;;
+esac
+
+function on_success() {
+	doc_url=https://xaoxuu.com/wiki/${const_repo}/
+	printf "\n> \033[32m恭喜您，安装成功！\033[0m已为您打开文档页面，请收藏这个页面，在您遇到问题的时候可以查看文档：\033[32m${doc_url}\033[0m\n\n"
+	open ${doc_url}
+}
+
+
+curl -s ${const_lib}/download.sh | sh -s ${const_repo} ${param1_version} ${const_client} ./ &&
+curl -s ${const_lib}/install.sh | sh -s ${const_client} && on_success
