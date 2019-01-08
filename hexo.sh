@@ -4,7 +4,7 @@
 #
 
 # 脚本版本
-VERSION='2.0.3'
+VERSION='2.0.4'
 
 function on_wait(){
 	if [ "$1" != "" ];then
@@ -43,13 +43,13 @@ function on_updated(){
 					printf "\n> \033[32m%s！\033[0m\t%s\n" "更新成功" "${PARAM3} -> ${VERSION}" && on_wait 2
 				fi
 			}
-	        chmod 777 $HOME/Downloads/hexo.sh && 
+	        chmod 777 $HOME/Downloads/hexo.sh &&
 	        printf "\n> 请输入密码来更新脚本\n" &&
 	        sudo mv $HOME/Downloads/hexo.sh '/usr/local/bin/hexo.sh' && success || on_fail
-	        PARAM2="" && PARAM3="" 
+	        PARAM2="" && PARAM3=""
 	        ;;
 		*) # 下载
-			chmod 777 hexo.sh && 
+			chmod 777 hexo.sh &&
 			printf "\n> 请输入密码来安装脚本\n" &&
 			sudo mv hexo.sh '/usr/local/bin/hexo.sh' || on_fail
 			;;
