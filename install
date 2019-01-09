@@ -1,6 +1,6 @@
 #!/bin/bash
 
-const_lib=https://cdn.jsdelivr.net/gh/xaoxuu/shell-lib@1.1
+const_lib=https://cdn.jsdelivr.net/gh/xaoxuu/shell-lib@v1
 const_repo='hexo.sh'
 const_client='hexo.sh'
 
