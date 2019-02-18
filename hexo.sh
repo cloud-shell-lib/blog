@@ -61,7 +61,7 @@ function on_updated(){
 function install_nodejs(){
 	function download(){
 		printf "\n> 现在开始下载[node.js]，这通常不会太久...\n"
-		curl -o $HOME/Downloads/node-latest.pkg 'https://nodejs.org/dist/v8.11.3/node-v8.11.3.pkg' -#
+		curl -o $HOME/Downloads/node-latest.pkg 'https://nodejs.org/dist/v10.15.1/node-v10.15.1.pkg' -#
 	}
 	function install(){
 		printf "\n> 请输入密码来安装node.js\n"
