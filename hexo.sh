@@ -4,7 +4,7 @@
 #
 
 # 脚本版本
-VERSION='2.0.4'
+VERSION='2.0.5'
 
 function on_wait(){
 	if [ "$1" != "" ];then
@@ -101,7 +101,7 @@ function hexo_theme_x(){
 	}
 	git_clone || git_update
 	printf "\n> 正在安装主题依赖包，马上就要成功了...\n"
-	npm i -S hexo-generator-search hexo-generator-feed hexo-renderer-less hexo-autoprefixer hexo-generator-json-content hexo-recommended-posts
+	npm i -S hexo-generator-search hexo-renderer-less
 	printf "\n> 正在应用主题...\n"
 	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: material-x/g" '_config.yml'
 }
@@ -173,7 +173,7 @@ function cmd_install(){
 function start(){
 	function cmd_help(){
 		function wait(){
-			on_wait 0.05
+			on_wait 0.02
 		}
 		printf "\n\n常用:\n" && wait
 		printf "  \033[1m\033[32m%s\033[0m %s \t %s \n" 'c' '(clean)' '执行 hexo clean' && wait
