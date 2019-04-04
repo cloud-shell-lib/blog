@@ -4,7 +4,7 @@
 #
 
 # 脚本版本
-VERSION='2.0.5'
+VERSION='2.0.6'
 
 function on_wait(){
 	if [ "$1" != "" ];then
@@ -101,7 +101,7 @@ function hexo_theme_x(){
 	}
 	git_clone || git_update
 	printf "\n> 正在安装主题依赖包，马上就要成功了...\n"
-	npm i -S hexo-generator-search hexo-renderer-less
+	npm i -S hexo-generator-search hexo-generator-json-content hexo-renderer-less
 	printf "\n> 正在应用主题...\n"
 	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: material-x/g" '_config.yml'
 }

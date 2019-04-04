@@ -6,7 +6,7 @@ const_client='hexo.sh'
 
 param1_version=$1
 case $param1_version in
-	'') param1_version='2.0.5' ;;
+	'') param1_version='2.0.6' ;;
 	*) ;;
 esac
 
