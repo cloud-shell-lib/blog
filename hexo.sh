@@ -4,7 +4,8 @@
 #
 
 # 脚本版本
-VERSION='2.0.6'
+VERSION='2.0.7'
+URL_NODE='https://nodejs.org/dist/v12.16.0/node-v12.16.0.pkg'
 
 function on_wait(){
 	if [ "$1" != "" ];then
@@ -61,7 +62,7 @@ function on_updated(){
 function install_nodejs(){
 	function download(){
 		printf "\n> 现在开始下载[node.js]，这通常不会太久...\n"
-		curl -o $HOME/Downloads/node-latest.pkg 'https://nodejs.org/dist/v10.15.3/node-v10.15.3.pkg' -#
+		curl -o $HOME/Downloads/node-latest.pkg $URL_NODE -#
 	}
 	function install(){
 		printf "\n> 请输入密码来安装node.js\n"
