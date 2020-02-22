@@ -4,7 +4,7 @@
 #
 
 # 脚本版本
-VERSION='2.0.7'
+VERSION='2.1.0'
 URL_NODE='https://nodejs.org/dist/v12.16.0/node-v12.16.0.pkg'
 
 function on_wait(){
@@ -91,20 +91,20 @@ function hexo_init(){
 	cd ${BLOGNAME}
 }
 # 安装主题
-function hexo_theme_x(){
+function hexo_theme_volantis(){
 	function git_clone(){
-		printf "\n> git clone https://github.com/xaoxuu/hexo-theme-material-x themes/material-x\n"
-		git clone https://github.com/xaoxuu/hexo-theme-material-x themes/material-x
+		printf "\n> git clone https://github.com/xaoxuu/hexo-theme-volantis themes/volantis\n"
+		git clone https://github.com/xaoxuu/hexo-theme-volantis themes/volantis
 	}
 	function git_update(){
-		printf "\n> git pull https://github.com/xaoxuu/hexo-theme-material-x themes/material-x\n"
-		cd "themes/material-x" && git pull && git checkout -- . && cd ../..
+		printf "\n> git pull https://github.com/xaoxuu/hexo-theme-volantis themes/volantis\n"
+		cd "themes/volantis" && git pull && git checkout -- . && cd ../..
 	}
 	git_clone || git_update
 	printf "\n> 正在安装主题依赖包，马上就要成功了...\n"
 	npm i -S hexo-generator-search hexo-generator-json-content hexo-renderer-less
 	printf "\n> 正在应用主题...\n"
-	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: material-x/g" '_config.yml'
+	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: volantis/g" '_config.yml'
 }
 
 # 启动博客
@@ -158,7 +158,7 @@ function cmd_init(){
 		fi
 	}
 	printf "\n> 请坐和放宽，我正在帮你搞定一切...\n"
-	auto_node && auto_hexo && hexo_init && hexo_theme_x && npm_install && hexo_server || on_fail
+	auto_node && auto_hexo && hexo_init && hexo_theme_volantis && npm_install && hexo_server || on_fail
 }
 function cmd_install(){
 	case $PARAM2 in
@@ -166,7 +166,7 @@ function cmd_install(){
 		'h'|'hexo') install_hexo ;;
 		'b'|'blog') hexo_init && hexo_server ;;
 		'd'|'dependency') npm_install ;;
-		'x'|'material-x') hexo_theme_x && hexo_server ;;
+		'v'|'volantis') hexo_theme_volantis && hexo_server ;;
 		*) ;;
 	esac
 	PARAM2=""
@@ -191,11 +191,11 @@ function start(){
 		printf "  \t\t \033[1m\033[32m%s\033[0m %-12s %s \n" 'h' '(hexo)' '安装hexo环境(npm install hexo-cli -g)' && wait
 		printf "  \t\t \033[1m\033[32m%s\033[0m %-12s %s \n" 'b' '(blog)' '搭建博客(hexo init, npm install)' && wait
 		printf "  \t\t \033[1m\033[32m%s\033[0m %-12s %s \n" 'd' '(dependency)' '安装依赖包(npm install)' && wait
-		printf "  \t\t \033[1m\033[32m%s\033[0m %-12s %s \n" 'x' '(material-x)' '下载并应用【Material-X】主题' && wait
+		printf "  \t\t \033[1m\033[32m%s\033[0m %-12s %s \n" 'v' '(volantis)' '下载并应用「Volantis」主题' && wait
 
 		printf "\n自动:\n" && wait
 		printf "  \033[1m\033[32m%-s\033[0m \t\t %s \n" 'init' '自动检查并安装所有需要的环境，然后搭建并启动博客。👍🏼' && wait
-		printf "  \033[1m\033[32m%-s\033[0m \t\t %s \n" 'xut' '下载并运行【Material-X】主题的单元测试。' && wait
+		printf "  \033[1m\033[32m%-s\033[0m \t\t %s \n" 'vut' '下载并运行「Volantis」主题的单元测试。' && wait
 
 
 		printf "\n脚本:\n" && wait
@@ -236,9 +236,9 @@ function start(){
 			echo '--------------------------------------------------------'
 		    read -p "请输入指令: " PARAM1 PARAM2
 		fi
-        case $PARAM1 in
-        	# 常用
-	        'c'|'clean') hexo_clean && on_wait || on_fail ;;
+    case $PARAM1 in
+    	# 常用
+      'c'|'clean') hexo_clean && on_wait || on_fail ;;
 			'g'|'generate') hexo_generate && on_wait || on_fail ;;
 			's'|'server') hexo_server ;;
 			'd'|'deploy') hexo_deploy && on_wait || on_fail ;;
@@ -255,9 +255,9 @@ function start(){
 			'i'|'install') cmd_install ;;
 			# 自动
 			'init') cmd_init ;;
-			'xut')
+			'vut')
 				git clone https://github.com/hexojs/hexo-theme-unit-test.git &&
-				cd hexo-theme-unit-test && npm_install && hexo.sh i x ;;
+				cd hexo-theme-unit-test && npm_install && hexo.sh i v ;;
 			# 脚本
 			'cd') cd $PARAM2 && on_success && on_wait 1 || on_fail;;
 			'docs') open https://xaoxuu.com/wiki/hexo.sh ;;
