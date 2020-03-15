@@ -4,7 +4,7 @@
 #
 
 # 脚本版本
-VERSION='2.1.0'
+VERSION='2.2.0'
 URL_NODE='https://nodejs.org/dist/v12.16.0/node-v12.16.0.pkg'
 
 function on_wait(){
@@ -81,14 +81,17 @@ function npm_install(){
 }
 # 创建博客
 function hexo_init(){
-	echo "" && read -p "请输入blog名称，例如“blog”: " BLOGNAME
-	if [ "$BLOGNAME" == "" ];then
-		BLOGNAME="blog"
+	if [ -f "_config.yml" ];then
+	else
+		echo "" && read -p "请输入blog名称，例如“blog”: " BLOGNAME
+		if [ "$BLOGNAME" == "" ];then
+			BLOGNAME="blog"
+		fi
+		printf "\n> hexo init\n" ${BLOGNAME}
+		hexo init ${BLOGNAME}
+		printf "\n> cd %s\n" ${BLOGNAME}
+		cd ${BLOGNAME}
 	fi
-	printf "\n> hexo init\n" ${BLOGNAME}
-	hexo init ${BLOGNAME}
-	printf "\n> cd %s\n" ${BLOGNAME}
-	cd ${BLOGNAME}
 }
 # 安装主题
 function hexo_theme_volantis(){
