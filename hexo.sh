@@ -4,8 +4,8 @@
 #
 
 # 脚本版本
-VERSION='2.2.0'
-URL_NODE='https://nodejs.org/dist/v12.16.0/node-v12.16.0.pkg'
+VERSION='2.3.0'
+URL_NODE='https://nodejs.org/dist/v12.16.1/node-v12.16.1.pkg'
 
 function on_wait(){
 	if [ "$1" != "" ];then
@@ -21,7 +21,6 @@ function on_success(){
 	else
 		printf "> \033[32m操作成功！\033[0m\n"
 	fi
-
 }
 function on_fail(){
 	if [ "$1" != "" ];then
@@ -31,31 +30,19 @@ function on_fail(){
 	fi
 	printf "我们都有不顺利的时候。\n"
 	on_wait
-
 }
 
 # 在新的脚本中，输出更新信息，并提交文件改动
 function on_updated(){
-	PARAM1=""
-	case $PARAM2 in
-		'update') # 更新
-			function success(){
-				if [[ "$PARAM3" != "" ]]; then
-					printf "\n> \033[32m%s！\033[0m\t%s\n" "更新成功" "${PARAM3} -> ${VERSION}" && on_wait 2
-				fi
-			}
-	        chmod 777 $HOME/Downloads/hexo.sh &&
-	        printf "\n> 请输入密码来更新脚本\n" &&
-	        sudo mv $HOME/Downloads/hexo.sh '/usr/local/bin/hexo.sh' && success || on_fail
-	        PARAM2="" && PARAM3=""
-	        ;;
-		*) # 下载
-			chmod 777 hexo.sh &&
-			printf "\n> 请输入密码来安装脚本\n" &&
-			sudo mv hexo.sh '/usr/local/bin/hexo.sh' || on_fail
-			;;
-	esac
-	hexo.sh $PARAM2 $PARAM3
+	function success(){
+		if [[ "$PARAM2" != "" ]]; then
+			printf "\n> \033[32m%s！\033[0m\t%s\n" "更新成功" "${PARAM2} -> ${VERSION}" && on_wait 2
+		fi
+	}
+	chmod 777 $HOME/Downloads/hexo.sh &&
+	printf "\n> 请输入密码来更新脚本\n" &&
+	sudo mv $HOME/Downloads/hexo.sh '/usr/local/bin/hexo.sh' && success || on_fail
+	PARAM1="" && PARAM2="" && PARAM3="" && PARAM4=""
 }
 
 # 安装nodejs
@@ -82,6 +69,7 @@ function npm_install(){
 # 创建博客
 function hexo_init(){
 	if [ -f "_config.yml" ];then
+		echo '已找到Hexo博客'
 	else
 		echo "" && read -p "请输入blog名称，例如“blog”: " BLOGNAME
 		if [ "$BLOGNAME" == "" ];then
@@ -125,15 +113,21 @@ function hexo_server(){
 function cmd_update(){
 	# 下载脚本
 	function download(){
-		curl -o $HOME/Downloads/hexo.sh 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh'
+		curl -f -o $HOME/Downloads/hexo.sh 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' -#
 	}
 	# 启动脚本，并传入参数
 	function install(){
 		chmod 777 $HOME/Downloads/hexo.sh
-		. $HOME/Downloads/hexo.sh -i update $VERSION
+		. $HOME/Downloads/hexo.sh __on_updated $VERSION
+	}
+	function on_update_fail(){
+		printf "\n> \033[31m%s\033[0m\n" "更新失败！请尝试重新安装："
+		printf "curl -s https://xaoxuu.com/install | sh -s hexo.sh\n"
+		on_wait
+
 	}
 	printf "\n> 正在更新...\n"
-	download && install || on_fail "更新失败"
+	download && install || on_update_fail
 	PARAM1=""
 	PARAM2=""
 }
@@ -269,7 +263,9 @@ function start(){
 			'help') cmd_help ;;
 
 			# private
-			'-i') on_updated ;;
+			'__on_updated') on_updated ;;
+			'__init') cmd_init
+			return ;;
 			*) ;;
 	    esac
 	    PARAM1="" && PARAM2=""

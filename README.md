@@ -2,8 +2,6 @@
 
 > Build your hexo blog swiftly and gently.
 
-
-
 ## hexo.sh有什么用？
 
 自动化执行一系列命令，节省时间。
@@ -39,7 +37,7 @@ curl -s https://xaoxuu.com/install | sh -s hexo.sh
 如需安装指定版本，在后面加上版本号即可：
 
 ```bash
-curl -s https://xaoxuu.com/install | sh -s hexo.sh 2.0.4
+curl -s https://xaoxuu.com/install | sh -s hexo.sh 2.3.0
 ```
 
 当你在终端看到类似如下的内容，就说明已经下载好并打开脚本了：
@@ -56,7 +54,7 @@ curl -s https://xaoxuu.com/install | sh -s hexo.sh 2.0.4
   cgd  		 执行 c, g, d 的组合，然后提交代码
 
 更多:
-  u (update) 	 更新脚本文件(当前版本：2.0.4)
+  u (update) 	 更新脚本文件(当前版本：2.3.0)
   help 		 查看全部指令
 --------------------------------------------------------
 请输入指令:
@@ -104,7 +102,7 @@ curl -s https://xaoxuu.com/install | sh -s hexo.sh 2.0.4
   cd + `path` 	 选择路径
   docs  	     查看文档(https://xaoxuu.com/wiki/hexo.sh)
   gh (github) 	 GitHub页面(https://github.com/xaoxuu/hexo.sh)
-  u (update) 	 更新脚本文件(当前版本：2.0.4)
+  u (update) 	 更新脚本文件(当前版本：2.3.0)
 ```
 
 
@@ -115,6 +113,6 @@ let `path` = 你想把博客放在哪里，打开终端 **cd到 `path`** 。
 
 在终端输入 **`hexo.sh init`** 自动检查并安装所有需要的环境，然后搭建并启动博客 。
 
-> 注意：安装node.js或者hexo的时候需要输入一次**本机密码**，别忘了哦。
+> 注意：安装 node.js 或者 hexo 的时候需要输入一次**本机密码**，别忘了哦。
 >
 > 搭建博客的时候你需要输入**博客名**，其他时间就可以坐和放宽了。
