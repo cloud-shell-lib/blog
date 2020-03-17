@@ -69,7 +69,7 @@ function npm_install(){
 # 创建博客
 function hexo_init(){
 	if [ -f "_config.yml" ];then
-		echo '已找到Hexo博客'
+		printf "\n\n> 已检测到hexo博客\n"
 	else
 		echo "" && read -p "请输入blog名称，例如“blog”: " BLOGNAME
 		if [ "$BLOGNAME" == "" ];then
@@ -136,7 +136,7 @@ function cmd_update(){
 function cmd_init(){
 	# 检查是否有 node 环境
 	function auto_node(){
-		printf "\n> 正在检查 node 环境...\n"
+		printf "\n> 正在检查node环境...\n"
 		node_version=`node -v`
 		if [[ ${node_version} == "" ]]; then
 			install_nodejs || on_fail
@@ -146,7 +146,7 @@ function cmd_init(){
 	}
 	# 检查是否有 hexo 环境
 	function auto_hexo(){
-		printf "\n> 正在检查 hexo 环境...\n"
+		printf "\n> 正在检查hexo环境...\n"
 		hexo_version=`hexo -v`
 		if [[ ${hexo_version} == "" ]]; then
 			install_hexo || on_fail
