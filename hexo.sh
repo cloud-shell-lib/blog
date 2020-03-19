@@ -4,7 +4,7 @@
 #
 
 # 脚本版本
-VERSION='2.3.0'
+VERSION='2.3.1'
 URL_NODE='https://nodejs.org/dist/v12.16.1/node-v12.16.1.pkg'
 
 function on_wait(){
@@ -93,7 +93,7 @@ function hexo_theme_volantis(){
 	}
 	git_clone || git_update
 	printf "\n> 正在安装主题依赖包，马上就要成功了...\n"
-	npm i -S hexo-generator-search hexo-generator-json-content hexo-renderer-less
+	npm i -S hexo-generator-search hexo-generator-json-content hexo-renderer-stylus
 	printf "\n> 正在应用主题...\n"
 	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: volantis/g" '_config.yml'
 }
