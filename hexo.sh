@@ -4,7 +4,7 @@
 #
 
 # 脚本版本
-VERSION='2.3.2'
+VERSION='2.3.3'
 URL_NODE='https://nodejs.org/dist/v12.18.2/node-v12.18.2.pkg'
 
 function on_wait(){
@@ -244,7 +244,7 @@ function start(){
 			'cgd')
 				function git_commit_all(){
 					printf "\n> 正在提交文件改动到git...\n"
-					git add --all && git commit -am "update all"
+					git add --all && git commit -m "update at `date +'%Y-%m-%d %H:%M:%S'`"
 					git push origin && echo -e "> \\033[0;32m提交成功！\\033[0;39m"
 				}
 				hexo_clean && hexo_generate && hexo_deploy && git_commit_all && on_wait || on_fail ;;
