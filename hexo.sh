@@ -4,7 +4,7 @@
 #
 
 # 脚本版本
-VERSION='2.3.1'
+VERSION='2.3.2'
 URL_NODE='https://nodejs.org/dist/v12.18.2/node-v12.18.2.pkg'
 
 function on_wait(){
@@ -84,11 +84,11 @@ function hexo_init(){
 # 安装主题
 function hexo_theme_volantis(){
 	function git_clone(){
-		printf "\n> git clone https://github.com/xaoxuu/hexo-theme-volantis themes/volantis\n"
-		git clone https://github.com/xaoxuu/hexo-theme-volantis themes/volantis
+		printf "\n> git clone https://github.com/volantis-x/hexo-theme-volantis themes/volantis\n"
+		git clone https://github.com/volantis-x/hexo-theme-volantis themes/volantis
 	}
 	function git_update(){
-		printf "\n> git pull https://github.com/xaoxuu/hexo-theme-volantis themes/volantis\n"
+		printf "\n> git pull https://github.com/volantis-x/hexo-theme-volantis themes/volantis\n"
 		cd "themes/volantis" && git pull && git checkout -- . && cd ../..
 	}
 	git_clone || git_update
