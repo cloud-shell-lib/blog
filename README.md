@@ -31,13 +31,13 @@ git push origin
 打开终端，输入并执行这一行命令即可：
 
 ```bash
-curl -s https://xaoxuu.com/install | sh -s hexo.sh
+curl -s https://xaoxuu.com/install | bash -s hexo.sh
 ```
 
 如需安装指定版本，在后面加上版本号即可：
 
 ```bash
-curl -s https://xaoxuu.com/install | sh -s hexo.sh 2.3.1
+curl -s https://xaoxuu.com/install | bash -s hexo.sh 2.3.1
 ```
 
 当你在终端看到类似如下的内容，就说明已经下载好并打开脚本了：

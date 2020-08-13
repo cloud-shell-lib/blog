@@ -4,8 +4,8 @@
 #
 
 # 脚本版本
-VERSION='2.3.3'
-URL_NODE='https://nodejs.org/dist/v12.18.2/node-v12.18.2.pkg'
+VERSION='2.3.4'
+URL_NODE='https://nodejs.org/dist/v12.18.2/node-v12.18.3.pkg'
 
 function on_wait(){
 	if [ "$1" != "" ];then
