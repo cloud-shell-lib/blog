@@ -86,25 +86,37 @@ function hexo_init(){
 }
 # 安装主题
 function hexo_theme_volantis(){
+	theme="volantis"
 	printf "\n> 正在安装Volantis主题，马上就要成功了...\n" &&
 	npm i hexo-theme-volantis &&
 	printf "\n> 正在安装主题依赖包，马上就要成功了...\n" &&
 	npm i -S hexo-generator-search hexo-generator-json-content hexo-renderer-stylus &&
 	printf "\n> 正在应用主题...\n" &&
-	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: volantis/g" '_config.yml'
+	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: volantis/g" '_config.yml' &&
+	if [ ! -f "_config.$theme.yml" ]; then
+	  touch "_config.$theme.yml"
+	fi
 }
 function hexo_theme_stellar(){
+	theme="volantis"
 	printf "\n> 正在安装Stellar主题，马上就要成功了...\n" &&
 	npm i hexo-theme-stellar &&
 	npm i -S hexo-renderer-stylus &&
 	printf "\n> 正在应用主题...\n" &&
-	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: stellar/g" '_config.yml'
+	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: stellar/g" '_config.yml' &&
+	if [ ! -f "_config.$theme.yml" ]; then
+	  touch "_config.$theme.yml"
+	fi
 }
 function hexo_theme_other(){
+	theme=$1
 	printf "\n> 正在安装$1主题，马上就要成功了...\n" &&
 	npm i hexo-theme-$1 &&
 	printf "\n> 正在应用主题...\n" &&
-	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: $1/g" '_config.yml'
+	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: $1/g" '_config.yml' &&
+	if [ ! -f "_config.$theme.yml" ]; then
+	  touch "_config.$theme.yml"
+	fi
 }
 
 
