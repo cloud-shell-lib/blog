@@ -4,7 +4,7 @@
 #
 
 # 脚本版本
-VERSION='2.3.5'
+VERSION='2.4.0'
 URL_NODE='https://nodejs.org/dist/v14.16.0/node-v14.16.0.pkg'
 
 function on_wait(){
@@ -42,7 +42,7 @@ function on_updated(){
 	chmod 777 $HOME/Downloads/hexo.sh &&
 	printf "\n> 请输入密码来更新脚本\n" &&
 	if [ ! -d '/usr/local/bin']; then
-	  sudo mkdir '/usr/local/bin' &&
+	  sudo mkdir '/usr/local/bin'
 	fi
 	sudo mv $HOME/Downloads/hexo.sh '/usr/local/bin/hexo.sh' && success || on_fail
 	PARAM1="" && PARAM2="" && PARAM3="" && PARAM4=""
@@ -86,20 +86,27 @@ function hexo_init(){
 }
 # 安装主题
 function hexo_theme_volantis(){
-	function git_clone(){
-		printf "\n> git clone https://github.com/volantis-x/hexo-theme-volantis themes/volantis\n"
-		git clone https://github.com/volantis-x/hexo-theme-volantis themes/volantis
-	}
-	function git_update(){
-		printf "\n> git pull https://github.com/volantis-x/hexo-theme-volantis themes/volantis\n"
-		cd "themes/volantis" && git pull && git checkout -- . && cd ../..
-	}
-	git_clone || git_update
-	printf "\n> 正在安装主题依赖包，马上就要成功了...\n"
-	npm i -S hexo-generator-search hexo-generator-json-content hexo-renderer-stylus
-	printf "\n> 正在应用主题...\n"
+	printf "\n> 正在安装Volantis主题，马上就要成功了...\n" &&
+	npm i hexo-theme-volantis &&
+	printf "\n> 正在安装主题依赖包，马上就要成功了...\n" &&
+	npm i -S hexo-generator-search hexo-generator-json-content hexo-renderer-stylus &&
+	printf "\n> 正在应用主题...\n" &&
 	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: volantis/g" '_config.yml'
 }
+function hexo_theme_stellar(){
+	printf "\n> 正在安装Stellar主题，马上就要成功了...\n" &&
+	npm i hexo-theme-stellar &&
+	npm i -S hexo-renderer-stylus &&
+	printf "\n> 正在应用主题...\n" &&
+	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: stellar/g" '_config.yml'
+}
+function hexo_theme_other(){
+	printf "\n> 正在安装$1主题，马上就要成功了...\n" &&
+	npm i hexo-theme-$1 &&
+	printf "\n> 正在应用主题...\n" &&
+	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: $1/g" '_config.yml'
+}
+
 
 # 启动博客
 function hexo_server(){
@@ -165,9 +172,10 @@ function cmd_install(){
 		'n'|'node') install_nodejs ;;
 		'h'|'hexo') install_hexo ;;
 		'b'|'blog') hexo_init && hexo_server ;;
-		'd'|'dependency') npm_install ;;
-		'v'|'volantis') hexo_theme_volantis && hexo_server ;;
-		*) ;;
+		'd'|'dep') npm_install ;;
+		'vlts'|'volantis') hexo_theme_volantis && hexo_server ;;
+		'stellar') hexo_theme_stellar && hexo_server ;;
+		*) hexo_theme_other && hexo_server ;;
 	esac
 	PARAM2=""
 }
@@ -186,17 +194,17 @@ function start(){
 		printf "  \033[1m\033[32m%s\033[0m %s \t\t %s \n" 'cgd' '' '执行 c, g, d 的组合，然后提交代码' && wait
 
 		printf "\n安装:\n" && wait
-		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'i' '(install)' '用于安装的命令，下面是install命令的参数:' && wait
-		printf "  \t\t \033[1m\033[32m%s\033[0m %-12s %s \n" 'n' '(node)' '安装node.js环境' && wait
-		printf "  \t\t \033[1m\033[32m%s\033[0m %-12s %s \n" 'h' '(hexo)' '安装hexo环境(npm install hexo-cli -g)' && wait
-		printf "  \t\t \033[1m\033[32m%s\033[0m %-12s %s \n" 'b' '(blog)' '搭建博客(hexo init, npm install)' && wait
-		printf "  \t\t \033[1m\033[32m%s\033[0m %-12s %s \n" 'd' '(dependency)' '安装依赖包(npm install)' && wait
-		printf "  \t\t \033[1m\033[32m%s\033[0m %-12s %s \n" 'v' '(volantis)' '下载并应用「Volantis」主题' && wait
+		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'i node' '' '安装node.js环境' && wait
+		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'i hexo' '' '安装hexo环境(npm install hexo-cli -g)' && wait
+		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'i blog' '' '搭建博客(hexo init, npm install)' && wait
+		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'i dep'  '' '安装依赖包(npm install)' && wait
+		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'i volantis' '' '下载并应用「Volantis」主题' && wait
+		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'i stellar' '' '下载并应用「Stellar」主题' && wait
+		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'i xxx' '' '下载并应用「xxx」主题' && wait
 
 		printf "\n自动:\n" && wait
 		printf "  \033[1m\033[32m%-s\033[0m \t\t %s \n" 'init' '自动检查并安装所有需要的环境，然后搭建并启动博客。👍🏼' && wait
 		printf "  \033[1m\033[32m%-s\033[0m \t\t %s \n" 'vut' '下载并运行「Volantis」主题的单元测试。' && wait
-
 
 		printf "\n脚本:\n" && wait
 		printf "  \033[1m\033[32m%-s\033[0m %s \033[1m\033[32m%-s\033[0m \t %s \n" 'cd' '+' '`path`' '选择路径'
