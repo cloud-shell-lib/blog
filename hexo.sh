@@ -4,7 +4,7 @@
 #
 
 # 脚本版本
-VERSION='2.4.0'
+VERSION='2.4.1'
 URL_NODE='https://nodejs.org/dist/v14.16.0/node-v14.16.0.pkg'
 
 function on_wait(){
@@ -187,7 +187,7 @@ function cmd_install(){
 		'd'|'dep') npm_install ;;
 		'vlts'|'volantis') hexo_theme_volantis && hexo_server ;;
 		'stellar') hexo_theme_stellar && hexo_server ;;
-		*) hexo_theme_other && hexo_server ;;
+		*) hexo_theme_other $PARAM2 && hexo_server ;;
 	esac
 	PARAM2=""
 }
