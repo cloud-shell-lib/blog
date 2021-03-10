@@ -4,8 +4,8 @@
 #
 
 # 脚本版本
-VERSION='2.3.4'
-URL_NODE='https://nodejs.org/dist/v12.18.2/node-v12.18.3.pkg'
+VERSION='2.3.5'
+URL_NODE='https://nodejs.org/dist/v14.16.0/node-v14.16.0.pkg'
 
 function on_wait(){
 	if [ "$1" != "" ];then
@@ -41,6 +41,9 @@ function on_updated(){
 	}
 	chmod 777 $HOME/Downloads/hexo.sh &&
 	printf "\n> 请输入密码来更新脚本\n" &&
+	if [ ! -d '/usr/local/bin']; then
+	  sudo mkdir '/usr/local/bin' &&
+	fi
 	sudo mv $HOME/Downloads/hexo.sh '/usr/local/bin/hexo.sh' && success || on_fail
 	PARAM1="" && PARAM2="" && PARAM3="" && PARAM4=""
 }

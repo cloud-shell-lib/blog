@@ -2,7 +2,7 @@
 # 这个脚本负责下载和安装的逻辑
 
 # function lib
-lib=https://cdn.jsdelivr.net/gh/xaoxuu/lib.sh@2.0
+lib=https://cdn.jsdelivr.net/gh/xaoxuu/lib.sh@2.0.1
 # repository name
 REPO='hexo.sh'
 # clint file name
