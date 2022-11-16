@@ -31,13 +31,13 @@ git push origin
 打开终端，输入并执行这一行命令即可：
 
 ```bash
-curl -s https://xaoxuu.com/install | bash -s hexo.sh
+curl -s https://sh.xaox.cc/install | bash -s hexo.sh
 ```
 
 如需安装指定版本，在后面加上版本号即可：
 
 ```bash
-curl -s https://xaoxuu.com/install | bash -s hexo.sh 2.3.1
+curl -s https://sh.xaox.cc/install | bash -s hexo.sh 2.4.3
 ```
 
 当你在终端看到类似如下的内容，就说明已经下载好并打开脚本了：
@@ -54,7 +54,7 @@ curl -s https://xaoxuu.com/install | bash -s hexo.sh 2.3.1
   cgd  		 执行 c, g, d 的组合，然后提交代码
 
 更多:
-  u (update) 	 更新脚本文件(当前版本：2.3.1)
+  u (update) 	 更新脚本文件(当前版本：2.4.3)
   help 		 查看全部指令
 --------------------------------------------------------
 请输入指令:
@@ -102,7 +102,7 @@ curl -s https://xaoxuu.com/install | bash -s hexo.sh 2.3.1
   cd + `path` 	 选择路径
   docs  	     查看文档(https://xaoxuu.com/wiki/hexo.sh)
   gh (github) 	 GitHub页面(https://github.com/xaoxuu/hexo.sh)
-  u (update) 	 更新脚本文件(当前版本：2.3.1)
+  u (update) 	 更新脚本文件(当前版本：2.4.3)
 ```
 
 

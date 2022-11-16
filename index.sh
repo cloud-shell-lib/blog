@@ -2,7 +2,7 @@
 # 这个脚本负责下载和安装的逻辑
 
 # function lib
-lib=https://cdn.jsdelivr.net/gh/xaoxuu/lib.sh@2.0.1
+lib='https://sh.xaox.cc/lib/v1'
 # repository name
 REPO='hexo.sh'
 # clint file name
@@ -10,7 +10,7 @@ TARGET='hexo.sh'
 # download version
 VERSION=$1
 if [ "$VERSION" == "" ];then
-	VERSION='master'
+	VERSION='main'
 fi
 
 
@@ -20,5 +20,5 @@ function on_success() {
 }
 
 
-curl -s ${lib}/download.sh | sh -s xaoxuu ${REPO} ${VERSION} ${TARGET} &&
+curl -s ${lib}/download.sh | sh -s ${REPO} ${VERSION} ${TARGET} &&
 curl -s ${lib}/install.sh | sh -s $HOME/Downloads/${TARGET} && on_success

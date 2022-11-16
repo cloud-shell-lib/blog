@@ -4,7 +4,7 @@
 #
 
 # 脚本版本
-VERSION='2.4.2'
+VERSION='2.4.3'
 URL_NODE='https://nodejs.org/dist/v18.12.0/node-v18.12.0.pkg'
 
 function on_wait(){
