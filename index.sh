@@ -6,7 +6,7 @@ lib='https://sh.xaox.cc/lib/v3'
 # repository name
 REPO='blog'
 # clint file name
-TARGET='blog.sh'
+TARGET='cli.sh'
 # clint file name
 RENAME='blog'
 # download version

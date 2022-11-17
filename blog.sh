@@ -1,76 +1,58 @@
 #!/bin/bash
-#
-# 在终端输入 blog.sh 即可打开脚本
-#
+# docs: https://xaoxuu.com/wiki/cloud-shell/blog/
 
-# 脚本版本
 VERSION='3.0.0'
 URL_NODE='https://nodejs.org/dist/v18.12.1/node-v18.12.1.pkg'
 
-function on_wait(){
-	if [ "$1" != "" ];then
-		sleep $1
-	else
-		printf "\n按下任意键继续: "
-		read -n 1
+P1=$1
+P2=$2
+P3=$3
+P4=$4
+
+
+function on_success() {
+	str=$1
+	if [ "$str" == "" ];then
+		str="操作成功"
 	fi
+	printf "> \033[32m%s！\033[0m\n" "${str}"
 }
-function on_success(){
-	if [ "$1" != "" ];then
-		printf "> \033[32m%s！\033[0m\n" $1
-	else
-		printf "> \033[32m操作成功！\033[0m\n"
+function on_fail() {
+	str=$1
+	if [ "$str" == "" ];then
+		str="操作失败"
 	fi
-}
-function on_fail(){
-	if [ "$1" != "" ];then
-		printf "\n> \033[31m%s！\033[0m\n" $1
-	else
-		printf "\n> \033[31m操作失败！\033[0m\n"
-	fi
+	printf "\n> \033[31m%s！\033[0m\n" "${str}"
 	printf "我们都有不顺利的时候。\n"
-	on_wait
 }
 
-# 在新的脚本中，输出更新信息，并提交文件改动
-function on_updated(){
-	function success(){
-		if [[ "$PARAM2" != "" ]]; then
-			printf "\n> \033[32m%s！\033[0m\t%s\n" "更新成功" "${PARAM2} -> ${VERSION}" && on_wait 2
-		fi
-	}
-	chmod 777 $HOME/Downloads/blog.sh &&
-	printf "\n> 请输入密码来更新脚本\n" &&
-	if [ ! -d '/usr/local/bin']; then
-	  sudo mkdir '/usr/local/bin'
-	fi
-	sudo mv $HOME/Downloads/blog.sh '/usr/local/bin/blog' && success || on_fail
-	PARAM1="" && PARAM2="" && PARAM3="" && PARAM4=""
-}
-
-# 安装nodejs
-function install_nodejs(){
+# install nodejs
+function install_nodejs() {
 	function download(){
 		printf "\n> 现在开始下载[node.js]，这通常不会太久...\n"
 		curl -o $HOME/Downloads/node-latest.pkg $URL_NODE -#
 	}
-	function install(){
+	function install() {
 		printf "\n> 请输入密码来安装node.js\n"
 		sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"
 	}
 	download && install
 }
-# 安装hexo
-function install_hexo(){
+
+# install hexo
+function install_hexo() {
 	printf "\n> 现在开始下载并安装[hexo]，这通常不会太久...\n"
 	printf "\n> sudo npm install hexo-cli -g\n"
 	sudo npm install hexo-cli -g
 }
-function npm_install(){
-	printf "\n> npm install\n" && npm install
+
+# npm i
+function npm_install() {
+	printf "\n> npm install\n" && npm i
 }
-# 创建博客
-function hexo_init(){
+
+# hexo init
+function hexo_init() {
 	if [ -f "_config.yml" ];then
 		printf "\n\n> 已检测到hexo博客\n"
 	else
@@ -84,219 +66,110 @@ function hexo_init(){
 		cd ${BLOGNAME}
 	fi
 }
-# 安装主题
-function hexo_theme_volantis(){
-	theme="volantis"
-	printf "\n> 正在安装Volantis主题，马上就要成功了...\n" &&
-	npm i hexo-theme-volantis &&
-	printf "\n> 正在安装主题依赖包，马上就要成功了...\n" &&
-	npm i -S hexo-generator-search hexo-generator-json-content hexo-renderer-stylus &&
-	printf "\n> 正在应用主题...\n" &&
-	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: volantis/g" '_config.yml' &&
-	if [ ! -f "_config.$theme.yml" ]; then
-	  touch "_config.$theme.yml"
-	fi
-}
-function hexo_theme_stellar(){
-	theme="volantis"
-	printf "\n> 正在安装Stellar主题，马上就要成功了...\n" &&
-	npm i hexo-theme-stellar &&
-	npm i -S hexo-renderer-stylus &&
-	printf "\n> 正在应用主题...\n" &&
-	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: stellar/g" '_config.yml' &&
-	if [ ! -f "_config.$theme.yml" ]; then
-	  touch "_config.$theme.yml"
-	fi
-}
-function hexo_theme_other(){
+
+# install theme
+function install_theme() {
 	theme=$1
-	printf "\n> 正在安装$1主题，马上就要成功了...\n" &&
-	npm i hexo-theme-$1 &&
+	if [[ ${theme} == "" ]]; then
+		theme="stellar"
+	fi
+	printf "\n> 正在安装%s主题，马上就要成功了...\n" $theme &&
+	npm i hexo-theme-$theme &&
 	printf "\n> 正在应用主题...\n" &&
-	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: $1/g" '_config.yml' &&
+	sed -i "" "s/^theme:\([^\"]\{1,\}\)/theme: $theme/g" '_config.yml' &&
 	if [ ! -f "_config.$theme.yml" ]; then
 	  touch "_config.$theme.yml"
 	fi
 }
 
-
-# 启动博客
-function hexo_server(){
-	function open_url(){
+# local run
+function hexo_server() {
+	function open_url() {
 		sleep 3
 		open http://localhost:4000/
 	}
 	printf "\n> hexo server\n"
-    open_url &
-    hexo server
+	open_url & hexo server
 }
 
-# 更新脚本
-function cmd_update(){
-	# 下载脚本
-	function download(){
-		curl -f -o $HOME/Downloads/blog.sh 'https://sh.xaox.cc/run/blog/main/blog.sh' -#
-	}
-	# 启动脚本，并传入参数
-	function install(){
-		chmod 777 $HOME/Downloads/blog.sh
-		. $HOME/Downloads/blog.sh __on_updated $VERSION
-	}
-	function on_update_fail(){
-		printf "\n> \033[31m%s\033[0m\n" "更新失败！请尝试重新安装："
-		printf "curl -s https://xaoxuu.com/install | sh -s blog.sh\n"
-		on_wait
-
-	}
-	printf "\n> 正在更新...\n"
-	download && install || on_update_fail
-	PARAM1=""
-	PARAM2=""
-}
-
-
-function cmd_init(){
+# check and start
+function check_and_start() {
 	# 检查是否有 node 环境
-	function auto_node(){
-		printf "\n> 正在检查node环境...\n"
+	function check_node() {
+		printf "\n> 正在检查 node 环境...\n"
 		node_version=`node -v`
 		if [[ ${node_version} == "" ]]; then
 			install_nodejs || on_fail
 		else
-			on_success "node.js准备就绪"
+			echo "node.js ${node_version}" && on_success "准备就绪"
 		fi
 	}
 	# 检查是否有 hexo 环境
-	function auto_hexo(){
-		printf "\n> 正在检查hexo环境...\n"
+	function check_hexo() {
+		printf "\n> 正在检查 hexo 环境...\n"
 		hexo_version=`hexo -v`
 		if [[ ${hexo_version} == "" ]]; then
 			install_hexo || on_fail
 		else
-			on_success "hexo准备就绪"
+			echo "${hexo_version}" && on_success "准备就绪"
 		fi
 	}
-	printf "\n> 请坐和放宽，我正在帮你搞定一切...\n"
-	auto_node && auto_hexo && hexo_init && hexo_theme_volantis && npm_install && hexo_server || on_fail
+	printf "\n> 请坐和放宽，我们正在帮你搞定一切...\n"
+	check_node && check_hexo && hexo_init && install_theme $1 && npm_install && hexo_server || on_fail
 }
-function cmd_install(){
-	case $PARAM2 in
-		'n'|'node') install_nodejs ;;
-		'h'|'hexo') install_hexo ;;
-		'b'|'blog') hexo_init && hexo_server ;;
-		'd'|'dep') npm_install ;;
-		'vlts'|'volantis') hexo_theme_volantis && hexo_server ;;
-		'stellar') hexo_theme_stellar && hexo_server ;;
-		*) hexo_theme_other $PARAM2 && hexo_server ;;
-	esac
-	PARAM2=""
+
+function hexo_clean() {
+	printf "\n> hexo clean\n" && hexo clean
 }
-function start(){
-	function cmd_help(){
-		function wait(){
-			on_wait 0.02
+
+function hexo_generate() {
+	printf "\n> hexo generate\n" && hexo generate
+}
+
+function hexo_deploy() {
+	printf "\n> hexo deploy\n" && hexo deploy
+}
+
+
+#### main ####
+case $P1 in
+	# 常用
+	'c'|'clean') hexo_clean || on_fail ;;
+	'g'|'generate') hexo_generate || on_fail ;;
+	's'|'server') hexo_server || on_fail ;;
+	'd'|'deploy') hexo_deploy || on_fail ;;
+	'cs') hexo_clean && hexo_server || on_fail ;;
+	'cg') hexo_clean && hexo_generate || on_fail ;;
+	'cgd')
+		function git_commit_all() {
+			printf "\n> 正在提交文件改动到git...\n"
+			git add --all && git commit -m "update at `date +'%Y-%m-%d %H:%M:%S'`"
+			git push origin && echo -e "> \\033[0;32m提交成功！\\033[0;39m"
 		}
-		printf "\n\n常用:\n" && wait
-		printf "  \033[1m\033[32m%s\033[0m %s \t %s \n" 'c' '(clean)' '执行 hexo clean' && wait
-		printf "  \033[1m\033[32m%s\033[0m %s \t %s \n" 's' '(server)' '执行 hexo server' && wait
-		printf "  \033[1m\033[32m%s\033[0m %s \t %s \n" 'g' '(generate)' '执行 hexo generate' && wait
-		printf "  \033[1m\033[32m%s\033[0m %s \t %s \n" 'd' '(deploy)' '执行 hexo deploy' && wait
-		printf "  \033[1m\033[32m%s\033[0m %s \t\t %s \n" 'cs' '' '执行 c, s 的组合' && wait
-		printf "  \033[1m\033[32m%s\033[0m %s \t\t %s \n" 'cg' '' '执行 c, g 的组合' && wait
-		printf "  \033[1m\033[32m%s\033[0m %s \t\t %s \n" 'cgd' '' '执行 c, g, d 的组合，然后提交代码' && wait
-
-		printf "\n安装:\n" && wait
-		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'i node' '' '安装node.js环境' && wait
-		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'i hexo' '' '安装hexo环境(npm install hexo-cli -g)' && wait
-		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'i blog' '' '搭建博客(hexo init, npm install)' && wait
-		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'i dep'  '' '安装依赖包(npm install)' && wait
-		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'i volantis' '' '下载并应用「Volantis」主题' && wait
-		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'i stellar' '' '下载并应用「Stellar」主题' && wait
-		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'i xxx' '' '下载并应用「xxx」主题' && wait
-
-		printf "\n自动:\n" && wait
-		printf "  \033[1m\033[32m%-s\033[0m \t\t %s \n" 'init' '自动检查并安装所有需要的环境，然后搭建并启动博客。👍🏼' && wait
-		printf "  \033[1m\033[32m%-s\033[0m \t\t %s \n" 'vut' '下载并运行「Volantis」主题的单元测试。' && wait
-
-		printf "\n脚本:\n" && wait
-		printf "  \033[1m\033[32m%-s\033[0m %s \033[1m\033[32m%-s\033[0m \t %s \n" 'cd' '+' '`path`' '选择路径'
-		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'docs' '' '查看文档(https://xaoxuu.com/wiki/cloud-shell/blog/)' && wait
-		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'gh' '(github)' 'GitHub页面(https://github.com/cloud-shell-lib/blog)' && wait
-		printf "  \033[1m\033[32m%-s\033[0m %s \t %s%s%s \n" 'u' '(update)' '更新脚本文件(当前版本：' ${VERSION} ')' && wait
-
-		printf "\n\n" && wait
-		on_wait
-
-	}
-	function hexo_clean(){
-		printf "\n> hexo clean\n" && hexo clean
-	}
-	function hexo_generate(){
-		printf "\n> hexo generate\n" && hexo generate
-	}
-	function hexo_deploy(){
-		printf "\n> hexo deploy\n" && hexo deploy
-	}
-	while :
-	do
-		if [ "$PARAM1" == "" ];then
-			clear
-			echo '==================== Hexo Utilities ===================='
-			printf "常用:\n"
-			printf "  \033[1m\033[32m%s\033[0m %s \t %s \n" 'c' '(clean)' '执行 hexo clean'
-			printf "  \033[1m\033[32m%s\033[0m %s \t %s \n" 's' '(server)' '执行 hexo server'
-			printf "  \033[1m\033[32m%s\033[0m %s \t %s \n" 'g' '(generate)' '执行 hexo generate'
-			printf "  \033[1m\033[32m%s\033[0m %s \t %s \n" 'd' '(deploy)' '执行 hexo deploy'
-			printf "  \033[1m\033[32m%s\033[0m %s \t\t %s \n" 'cs' '' '执行 c, s 的组合'
-			printf "  \033[1m\033[32m%s\033[0m %s \t\t %s \n" 'cg' '' '执行 c, g 的组合'
-			printf "  \033[1m\033[32m%s\033[0m %s \t\t %s \n" 'cgd' '' '执行 c, g, d 的组合，然后提交代码'
-			printf "\n更多:\n"
-			printf "  \033[1m\033[32m%-s\033[0m %s \t %s%s%s \n" 'u' '(update)' '更新脚本文件(当前版本：' ${VERSION} ')'
-			printf "  \033[1m\033[32m%-s\033[0m \t\t %s \n" 'help'  '查看全部指令'
-			echo '--------------------------------------------------------'
-		    read -p "请输入指令: " PARAM1 PARAM2
-		fi
-    case $PARAM1 in
-    	# 常用
-      'c'|'clean') hexo_clean && on_wait || on_fail ;;
-			'g'|'generate') hexo_generate && on_wait || on_fail ;;
-			's'|'server') hexo_server ;;
-			'd'|'deploy') hexo_deploy && on_wait || on_fail ;;
-			'cs') hexo_clean && hexo_server ;;
-			'cg') hexo_clean && hexo_generate && on_wait || on_fail ;;
-			'cgd')
-				function git_commit_all(){
-					printf "\n> 正在提交文件改动到git...\n"
-					git add --all && git commit -m "update at `date +'%Y-%m-%d %H:%M:%S'`"
-					git push origin && echo -e "> \\033[0;32m提交成功！\\033[0;39m"
-				}
-				hexo_clean && hexo_generate && hexo_deploy && git_commit_all && on_wait || on_fail ;;
-			# 安装
-			'i'|'install') cmd_install ;;
-			# 自动
-			'init') cmd_init ;;
-			'vut')
-				git clone https://github.com/hexojs/hexo-theme-unit-test.git &&
-				cd hexo-theme-unit-test && npm_install && blog.sh i v ;;
-			# 脚本
-			'cd') cd $PARAM2 && on_success && on_wait 1 || on_fail;;
-			'docs') open https://xaoxuu.com/wiki/cloud-shell/blog/ ;;
-			'gh'|'github') open https://github.com/cloud-shell-lib/blog ;;
-			'u'|'update') cmd_update ;;
-			'help') cmd_help ;;
-
-			# private
-			'__on_updated') on_updated ;;
-			'__init') cmd_init
-			return ;;
-			*) ;;
-	    esac
-	    PARAM1="" && PARAM2=""
-	done
-}
-
-PARAM1=$1
-PARAM2=$2
-PARAM3=$3
-PARAM4=$4
-start
+		hexo_clean && hexo_generate && hexo_deploy && git_commit_all || on_fail ;;
+	# 安装
+	'i'|'install') 
+		case $P2 in
+			'n'|'node') install_nodejs ;;
+			'h'|'hexo') install_hexo ;;
+			'b'|'blog') hexo_init && hexo_server ;;
+			'd'|'dep') npm_install ;;
+			'vlts') install_theme 'volantis' && hexo_server ;;
+			*) install_theme $P2 && hexo_server ;;
+		esac
+		;;
+	# 自动
+	'init') check_and_start $P2 ;;
+	'test')
+		git clone https://github.com/hexojs/hexo-theme-unit-test.git &&
+		cd hexo-theme-unit-test &&
+		install_theme $P2 && npm_install && hexo_server || on_fail
+		;;
+	# 帮助
+	'docs'|'help') open https://xaoxuu.com/wiki/cloud-shell/blog/ ;;
+	'gh'|'github') open https://github.com/cloud-shell-lib/blog ;;
+	'version'|'-v') printf "> version: %s\n" ${VERSION} ;;
+	'') 
+	printf "> see docs: https://xaoxuu.com/wiki/cloud-shell/blog/\n"
+	;;
+esac

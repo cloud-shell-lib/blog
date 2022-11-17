@@ -78,29 +78,32 @@ curl -s https://sh.xaox.cc/install | bash -s blog 3.0.0
 
 ```
 常用:
-  c (clean) 	 执行 hexo clean
-  s (server) 	 执行 hexo server
-  g (generate) 	 执行 hexo generate
-  d (deploy) 	 执行 hexo deploy
-  cs  		     执行 c, s 的组合
-  cg  		     执行 c, g 的组合
-  cgd  	    	 执行 c, g, d 的组合，然后提交代码
+  c (clean) 	 执行 hexo clean 
+  s (server) 	 执行 hexo server 
+  g (generate) 	 执行 hexo generate 
+  d (deploy) 	 执行 hexo deploy 
+  cs  		 执行 c, s 的组合 
+  cg  		 执行 c, g 的组合 
+  cgd  		 执行 c, g, d 的组合，然后提交代码 
 
 安装:
-  i (install) 	 用于安装的命令，下面是install命令的参数:
-  		         n (node)       安装node.js环境
-  		         h (hexo)       安装hexo环境(npm install hexo-cli -g)
-  		         b (blog)       搭建博客(hexo init, npm install)
-  		         d (dependency) 安装依赖包(npm install)
+  i node  	 安装node.js环境 
+  i hexo  	 安装hexo环境(npm install hexo-cli -g) 
+  i blog  	 搭建博客(hexo init, npm install) 
+  i dep  	 安装依赖包(npm install) 
+  i volantis  	 下载并应用「Volantis」主题 
+  i stellar  	 下载并应用「Stellar」主题 
+  i xxx  	 下载并应用「xxx」主题 
 
 自动:
-  init 		     自动检查并安装所有需要的环境，然后搭建并启动博客。👍🏼
+  init 		 自动检查并安装所有需要的环境，然后搭建并启动博客。👍🏼 
+  vut 		 下载并运行「Volantis」主题的单元测试。 
 
 脚本:
-  cd + `path` 	 选择路径
-  docs  	     查看文档(https://xaoxuu.com/wiki/cloud-shell/blog/)
-  gh (github) 	 GitHub页面(https://github.com/cloud-shell-lib/blog)
-  u (update) 	 更新脚本文件(当前版本：3.0.0)
+  cd + `path` 	 选择路径 
+  docs  	 查看文档(https://xaoxuu.com/wiki/cloud-shell/blog/) 
+  gh (github) 	 GitHub页面(https://github.com/cloud-shell-lib/blog) 
+  u (update) 	 更新脚本文件(当前版本：3.0.0) 
 ```
 
 
