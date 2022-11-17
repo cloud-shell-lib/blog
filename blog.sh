@@ -6,9 +6,6 @@ URL_NODE='https://nodejs.org/dist/v18.12.1/node-v18.12.1.pkg'
 
 P1=$1
 P2=$2
-P3=$3
-P4=$4
-
 
 function on_success() {
 	str=$1
