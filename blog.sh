@@ -1,11 +1,11 @@
 #!/bin/bash
 #
-# 在终端输入 hexo.sh 即可打开脚本
+# 在终端输入 blog.sh 即可打开脚本
 #
 
 # 脚本版本
-VERSION='2.4.3'
-URL_NODE='https://nodejs.org/dist/v18.12.0/node-v18.12.0.pkg'
+VERSION='3.0.0'
+URL_NODE='https://nodejs.org/dist/v18.12.1/node-v18.12.1.pkg'
 
 function on_wait(){
 	if [ "$1" != "" ];then
@@ -39,12 +39,12 @@ function on_updated(){
 			printf "\n> \033[32m%s！\033[0m\t%s\n" "更新成功" "${PARAM2} -> ${VERSION}" && on_wait 2
 		fi
 	}
-	chmod 777 $HOME/Downloads/hexo.sh &&
+	chmod 777 $HOME/Downloads/blog.sh &&
 	printf "\n> 请输入密码来更新脚本\n" &&
 	if [ ! -d '/usr/local/bin']; then
 	  sudo mkdir '/usr/local/bin'
 	fi
-	sudo mv $HOME/Downloads/hexo.sh '/usr/local/bin/hexo.sh' && success || on_fail
+	sudo mv $HOME/Downloads/blog.sh '/usr/local/bin/blog.sh' && success || on_fail
 	PARAM1="" && PARAM2="" && PARAM3="" && PARAM4=""
 }
 
@@ -135,16 +135,16 @@ function hexo_server(){
 function cmd_update(){
 	# 下载脚本
 	function download(){
-		curl -f -o $HOME/Downloads/hexo.sh 'https://raw.githubusercontent.com/xaoxuu/hexo.sh/master/hexo.sh' -#
+		curl -f -o $HOME/Downloads/blog.sh 'https://sh.xaox.cc/run/blog/main/blog.sh' -#
 	}
 	# 启动脚本，并传入参数
 	function install(){
-		chmod 777 $HOME/Downloads/hexo.sh
-		. $HOME/Downloads/hexo.sh __on_updated $VERSION
+		chmod 777 $HOME/Downloads/blog.sh
+		. $HOME/Downloads/blog.sh __on_updated $VERSION
 	}
 	function on_update_fail(){
 		printf "\n> \033[31m%s\033[0m\n" "更新失败！请尝试重新安装："
-		printf "curl -s https://xaoxuu.com/install | sh -s hexo.sh\n"
+		printf "curl -s https://xaoxuu.com/install | sh -s blog.sh\n"
 		on_wait
 
 	}
@@ -220,8 +220,8 @@ function start(){
 
 		printf "\n脚本:\n" && wait
 		printf "  \033[1m\033[32m%-s\033[0m %s \033[1m\033[32m%-s\033[0m \t %s \n" 'cd' '+' '`path`' '选择路径'
-		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'docs' '' '查看文档(https://xaoxuu.com/wiki/hexo.sh)' && wait
-		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'gh' '(github)' 'GitHub页面(https://github.com/xaoxuu/hexo.sh)' && wait
+		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'docs' '' '查看文档(https://xaoxuu.com/wiki/cloud-shell/blog/)' && wait
+		printf "  \033[1m\033[32m%-s\033[0m %s \t %s \n" 'gh' '(github)' 'GitHub页面(https://github.com/cloud-shell-lib/blog)' && wait
 		printf "  \033[1m\033[32m%-s\033[0m %s \t %s%s%s \n" 'u' '(update)' '更新脚本文件(当前版本：' ${VERSION} ')' && wait
 
 		printf "\n\n" && wait
@@ -277,11 +277,11 @@ function start(){
 			'init') cmd_init ;;
 			'vut')
 				git clone https://github.com/hexojs/hexo-theme-unit-test.git &&
-				cd hexo-theme-unit-test && npm_install && hexo.sh i v ;;
+				cd hexo-theme-unit-test && npm_install && blog.sh i v ;;
 			# 脚本
 			'cd') cd $PARAM2 && on_success && on_wait 1 || on_fail;;
-			'docs') open https://xaoxuu.com/wiki/hexo.sh ;;
-			'gh'|'github') open https://github.com/xaoxuu/hexo.sh ;;
+			'docs') open https://xaoxuu.com/wiki/cloud-shell/blog/ ;;
+			'gh'|'github') open https://github.com/cloud-shell-lib/blog ;;
 			'u'|'update') cmd_update ;;
 			'help') cmd_help ;;
 
