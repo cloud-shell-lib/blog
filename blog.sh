@@ -44,7 +44,7 @@ function on_updated(){
 	if [ ! -d '/usr/local/bin']; then
 	  sudo mkdir '/usr/local/bin'
 	fi
-	sudo mv $HOME/Downloads/blog.sh '/usr/local/bin/blog.sh' && success || on_fail
+	sudo mv $HOME/Downloads/blog.sh '/usr/local/bin/blog' && success || on_fail
 	PARAM1="" && PARAM2="" && PARAM3="" && PARAM4=""
 }
 

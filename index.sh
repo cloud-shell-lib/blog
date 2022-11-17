@@ -7,6 +7,8 @@ lib='https://sh.xaox.cc/lib/v3'
 REPO='blog'
 # clint file name
 TARGET='blog.sh'
+# clint file name
+RENAME='blog'
 # download version
 VERSION=$1
 if [ "$VERSION" == "" ];then
@@ -21,4 +23,4 @@ function on_success() {
 
 
 curl -s ${lib}/download.sh | sh -s ${REPO} ${VERSION} ${TARGET} &&
-curl -s ${lib}/install.sh | sh -s $HOME/Downloads/${TARGET} && on_success
+curl -s ${lib}/install.sh | sh -s $HOME/Downloads/${TARGET} ${RENAME} && on_success
