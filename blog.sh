@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # docs: https://xaoxuu.com/wiki/cloud-shell/blog/
 
 VERSION='3.0.0'
@@ -7,16 +7,16 @@ URL_NODE='https://nodejs.org/dist/v18.12.1/node-v18.12.1.pkg'
 P1=$1
 P2=$2
 
-function on_success() {
+on_success() {
 	str=$1
-	if [ "$str" == "" ];then
+	if [ "$str" = "" ];then
 		str="操作成功"
 	fi
 	printf "> \033[32m%s！\033[0m\n" "${str}"
 }
-function on_fail() {
+on_fail() {
 	str=$1
-	if [ "$str" == "" ];then
+	if [ "$str" = "" ];then
 		str="操作失败"
 	fi
 	printf "\n> \033[31m%s！\033[0m\n" "${str}"
@@ -24,12 +24,12 @@ function on_fail() {
 }
 
 # install nodejs
-function install_nodejs() {
-	function download(){
+install_nodejs() {
+	download(){
 		printf "\n> 现在开始下载[node.js]，这通常不会太久...\n"
 		curl -o $HOME/Downloads/node-latest.pkg $URL_NODE -#
 	}
-	function install() {
+	install() {
 		printf "\n> 请输入密码来安装node.js\n"
 		sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"
 	}
@@ -37,24 +37,24 @@ function install_nodejs() {
 }
 
 # install hexo
-function install_hexo() {
+install_hexo() {
 	printf "\n> 现在开始下载并安装[hexo]，这通常不会太久...\n"
 	printf "\n> sudo npm install hexo-cli -g\n"
 	sudo npm install hexo-cli -g
 }
 
 # npm i
-function npm_install() {
+npm_install() {
 	printf "\n> npm install\n" && npm i
 }
 
 # hexo init
-function hexo_init() {
+hexo_init() {
 	if [ -f "_config.yml" ];then
 		printf "\n\n> 已检测到hexo博客\n"
 	else
 		echo "" && read -p "请输入blog名称，例如“blog”: " BLOGNAME
-		if [ "$BLOGNAME" == "" ];then
+		if [ "$BLOGNAME" = "" ];then
 			BLOGNAME="blog"
 		fi
 		printf "\n> hexo init\n" ${BLOGNAME}
@@ -65,9 +65,9 @@ function hexo_init() {
 }
 
 # install theme
-function install_theme() {
+install_theme() {
 	theme=$1
-	if [[ ${theme} == "" ]]; then
+	if [ "${theme}" = "" ]; then
 		theme="stellar"
 	fi
 	printf "\n> 正在安装%s主题，马上就要成功了...\n" $theme &&
@@ -80,8 +80,8 @@ function install_theme() {
 }
 
 # local run
-function hexo_server() {
-	function open_url() {
+hexo_server() {
+	open_url() {
 		sleep 3
 		open http://localhost:4000/
 	}
@@ -90,11 +90,11 @@ function hexo_server() {
 }
 
 # check
-function check_env() {
+check_env() {
   # 检查是否有 node 环境
 	printf "\n> 正在检查 node 环境...\n"
   node_version=`node -v`
-  if [[ ${node_version} == "" ]]; then
+  if [ "${node_version}" = "" ]; then
     install_nodejs || on_fail
   else
     echo "node.js ${node_version}" && on_success "准备就绪"
@@ -102,26 +102,26 @@ function check_env() {
 	# 检查是否有 hexo 环境
 	printf "\n> 正在检查 hexo 环境...\n"
   hexo_version=`hexo -v`
-  if [[ ${hexo_version} == "" ]]; then
+  if [ "${hexo_version}" = "" ]; then
     install_hexo || on_fail
   else
     echo "${hexo_version}" && on_success "准备就绪"
   fi
 }
 # check and start
-function check_and_start() {
+check_and_start() {
 	check_env && hexo_init && install_theme $1 && npm_install && hexo_server || on_fail
 }
 
-function hexo_clean() {
+hexo_clean() {
 	printf "\n> hexo clean\n" && hexo clean
 }
 
-function hexo_generate() {
+hexo_generate() {
 	printf "\n> hexo generate\n" && hexo generate
 }
 
-function hexo_deploy() {
+hexo_deploy() {
 	printf "\n> hexo deploy\n" && hexo deploy
 }
 
@@ -136,7 +136,7 @@ case $P1 in
 	'cs') hexo_clean && hexo_server || on_fail ;;
 	'cg') hexo_clean && hexo_generate || on_fail ;;
 	'cgd')
-		function git_commit_all() {
+		git_commit_all() {
 			printf "\n> 正在提交文件改动到git...\n"
 			git add --all && git commit -m "update at `date +'%Y-%m-%d %H:%M:%S'`"
 			git push origin && echo -e "> \\033[0;32m提交成功！\\033[0;39m"

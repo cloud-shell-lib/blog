@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # 这个脚本负责下载和安装的逻辑
 
 # function lib
@@ -11,12 +11,12 @@ TARGET='cli.sh'
 RENAME='blog'
 # download version
 VERSION=$1
-if [ "$VERSION" == "" ];then
+if [ "$VERSION" = "" ];then
 	VERSION='main'
 fi
 
 
-function on_success() {
+on_success() {
 	doc_url=https://xaoxuu.com/wiki/cloud-shell/blog/
 	printf "\n> \033[32m恭喜您，安装成功！\033[0m 请收藏这个页面，在您遇到问题的时候可以查看文档：\n${doc_url}\n\n"
 }

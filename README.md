@@ -7,13 +7,13 @@
 自动化执行一系列命令，节省时间。
 
 例如，`cs`相当于：
-```bash
+```sh
 hexo clean
 hexo s
 ```
 
 `cgd`相当于：
-```bash
+```sh
 hexo clean
 hexo g
 hexo d
@@ -30,14 +30,14 @@ git push origin
 
 打开终端，输入并执行这一行命令即可：
 
-```bash
-curl -s https://sh.xaox.cc/install | bash -s blog
+```sh
+curl -s https://sh.xaox.cc/install | sh -s blog
 ```
 
 如需安装指定版本，在后面加上版本号即可：
 
-```bash
-curl -s https://sh.xaox.cc/install | bash -s blog 3.0.0
+```sh
+curl -s https://sh.xaox.cc/install | sh -s blog 3.0.0
 ```
 
 当你在终端看到类似如下的内容，就说明已经下载好并打开脚本了：
