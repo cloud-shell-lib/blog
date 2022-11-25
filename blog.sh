@@ -89,30 +89,28 @@ function hexo_server() {
 	open_url & hexo server
 }
 
+# check
+function check_env() {
+  # 检查是否有 node 环境
+	printf "\n> 正在检查 node 环境...\n"
+  node_version=`node -v`
+  if [[ ${node_version} == "" ]]; then
+    install_nodejs || on_fail
+  else
+    echo "node.js ${node_version}" && on_success "准备就绪"
+  fi
+	# 检查是否有 hexo 环境
+	printf "\n> 正在检查 hexo 环境...\n"
+  hexo_version=`hexo -v`
+  if [[ ${hexo_version} == "" ]]; then
+    install_hexo || on_fail
+  else
+    echo "${hexo_version}" && on_success "准备就绪"
+  fi
+}
 # check and start
 function check_and_start() {
-	# 检查是否有 node 环境
-	function check_node() {
-		printf "\n> 正在检查 node 环境...\n"
-		node_version=`node -v`
-		if [[ ${node_version} == "" ]]; then
-			install_nodejs || on_fail
-		else
-			echo "node.js ${node_version}" && on_success "准备就绪"
-		fi
-	}
-	# 检查是否有 hexo 环境
-	function check_hexo() {
-		printf "\n> 正在检查 hexo 环境...\n"
-		hexo_version=`hexo -v`
-		if [[ ${hexo_version} == "" ]]; then
-			install_hexo || on_fail
-		else
-			echo "${hexo_version}" && on_success "准备就绪"
-		fi
-	}
-	printf "\n> 请坐和放宽，我们正在帮你搞定一切...\n"
-	check_node && check_hexo && hexo_init && install_theme $1 && npm_install && hexo_server || on_fail
+	check_env && hexo_init && install_theme $1 && npm_install && hexo_server || on_fail
 }
 
 function hexo_clean() {
@@ -144,6 +142,8 @@ case $P1 in
 			git push origin && echo -e "> \\033[0;32m提交成功！\\033[0;39m"
 		}
 		hexo_clean && hexo_generate && hexo_deploy && git_commit_all || on_fail ;;
+  # 检测
+  'check') check_env && printf "\n> Hexo 运行环境已搭建就绪！\n" ;;
 	# 安装
 	'i'|'install') 
 		case $P2 in
@@ -162,6 +162,13 @@ case $P1 in
 		cd hexo-theme-unit-test &&
 		install_theme $P2 && npm_install && hexo_server || on_fail
 		;;
+  'resume')
+    check_env &&
+    git clone $P2 blog &&
+    cd blog &&
+    git submodule init && git submodule update &&
+    npm_install && hexo_server || on_fail
+  ;;
 	# 帮助
 	'docs'|'help') open https://xaoxuu.com/wiki/cloud-shell/blog/ ;;
 	'gh'|'github') open https://github.com/cloud-shell-lib/blog ;;
