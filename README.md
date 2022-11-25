@@ -40,24 +40,11 @@ curl -s https://sh.xaox.cc/install | sh -s blog
 curl -s https://sh.xaox.cc/install | sh -s blog 3.0.0
 ```
 
-当你在终端看到类似如下的内容，就说明已经下载好并打开脚本了：
+当你在终端输入 `blog` 看到类似如下的内容，就说明已经下载好并打开脚本了：
 
 ```
-==================== Hexo Utilities ====================
-常用:
-  c (clean) 	 执行 hexo clean
-  s (server) 	 执行 hexo server
-  g (generate) 	 执行 hexo generate
-  d (deploy) 	 执行 hexo deploy
-  cs  		 执行 c, s 的组合
-  cg  		 执行 c, g 的组合
-  cgd  		 执行 c, g, d 的组合，然后提交代码
-
-更多:
-  u (update) 	 更新脚本文件(当前版本：3.0.0)
-  help 		 查看全部指令
---------------------------------------------------------
-请输入指令:
+> blog: 3.0.0
+> docs: https://xaoxuu.com/wiki/cloud-shell/blog/
 ```
 
 
