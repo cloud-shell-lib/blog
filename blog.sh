@@ -1,9 +1,13 @@
 #!/bin/sh
 # docs: https://xaoxuu.com/wiki/cloud-shell/blog/
 
-VERSION='3.0.0'
+VERSION='3.0.1'
 URL_NODE='https://mirrors.tuna.tsinghua.edu.cn/nodejs-release/v18.16.1/node-v18.16.1.pkg' # 国内镜像
 # URL_NODE='https://nodejs.org/dist/v18.16.1/node-v18.16.1.pkg' # 官网
+
+URL_UNIT_TEST='https://git.xaox.cc/mirrors/hexo-theme-unit-test.git' # 国内镜像
+# URL_UNIT_TEST='https://github.com/hexojs/hexo-theme-unit-test.git' # 官网
+
 
 P1=$1
 P2=$2
@@ -159,7 +163,7 @@ case $P1 in
   # 自动
   'init') check_and_start $P2 ;;
   'test')
-    git clone https://github.com/hexojs/hexo-theme-unit-test.git &&
+    git clone $URL_UNIT_TEST &&
     cd hexo-theme-unit-test &&
     install_theme $P2 && npm_install && hexo_server || on_fail
   ;;
