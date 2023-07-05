@@ -2,7 +2,8 @@
 # docs: https://xaoxuu.com/wiki/cloud-shell/blog/
 
 VERSION='3.0.0'
-URL_NODE='https://nodejs.org/dist/v18.12.1/node-v18.12.1.pkg'
+URL_NODE='https://mirrors.tuna.tsinghua.edu.cn/nodejs-release/v18.16.1/node-v18.16.1.pkg' # 国内镜像
+# URL_NODE='https://nodejs.org/dist/v18.16.1/node-v18.16.1.pkg' # 官网
 
 P1=$1
 P2=$2
